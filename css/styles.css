@@ -1,24 +1,17 @@
-/* ═══════════════════════════════════════════════════════════
-   css/styles.css
-   Baybayin Bookworm Adventure — Start Screen Styles
-   ═══════════════════════════════════════════════════════════ */
-
-/* ─── CSS Variables ─────────────────────────────────────────── */
 :root {
-  --bg-deep:       #0a0604;
-  --bg-mid:        #1a0f06;
-  --parchment:     #f5e6c8;
-  --parchment-dim: #c9a96e;
+  --bg-deep:       #0a2d0a;
+  --bg-mid:        #1a4d1a;
+  --parchment:     #e6f5d8;
+  --parchment-dim: #c9e6a0;
   --gold:          #d4a017;
   --gold-light:    #f0c040;
   --gold-dark:     #8b6510;
   --red-accent:    #8b1a1a;
-  --ink:           #1e0f02;
+  --ink:           #102010;
   --glow-gold:     0 0 18px rgba(212,160,23,0.55), 0 0 40px rgba(212,160,23,0.25);
   --glow-soft:     0 0 8px  rgba(212,160,23,0.3);
 }
 
-/* ─── Reset & Base ───────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -38,45 +31,19 @@ body {
   justify-content: center;
 }
 
-/* ─── Background Layer ───────────────────────────────────────── */
-.bg-layer {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background-color: #2d6a2d;
-}
-
 /* ─── Main Screen Container ──────────────────────────────────── */
 .screen {
-  position: relative;
-  z-index: 10;
+  background: none;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* ─── Mascot ─────────────────────────────────────────────────── */
-.mascot-wrap {
-  position: relative;
-  margin-bottom: -10px;
-  animation: mascotFloat 3.5s ease-in-out infinite;
-}
-
-@keyframes mascotFloat {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-12px); }
-}
-
-.mascot {
-  width: 130px;
-  height: auto;
-  filter: drop-shadow(0 8px 20px rgba(212,160,23,0.4));
-}
-
 /* ─── Title Panel ────────────────────────────────────────────── */
 .title-panel {
   position: relative;
-  background: linear-gradient(160deg, #1e0f04 0%, #110800 60%, #1a0d04 100%);
+  background: linear-gradient(160deg, #0a2d0a 0%, #134013 60%, #1a4d1a 100%);
   border: 2px solid var(--gold-dark);
   border-radius: 6px;
   padding: 40px 60px 36px;
@@ -277,7 +244,7 @@ body {
 
 /* ─── Modal Box ──────────────────────────────────────────────── */
 .modal {
-  background: linear-gradient(160deg, #1e0f04 0%, #110800 100%);
+  background: linear-gradient(160deg, #0a2d0a 0%, #134013 100%);
   border: 1px solid var(--gold-dark);
   border-radius: 6px;
   padding: 36px 44px;
