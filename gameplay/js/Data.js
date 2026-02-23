@@ -60,8 +60,8 @@ const DATA = {
   /* ── Enemies ───────────────────────────────────────────── */
   enemies: [
     {
-      name: 'Mud Frog',
-      lore: 'A mud frog found in swamp areas. Can be hard to find due to its unique ability of camouflaging.',
+      name: 'Pebble Frog',
+      lore: 'A pebble frog hides along dirt roads, covering itself with loose stones to blend seamlessly into the ground and stay safe from predators.',
       maxHP: 3,
       moves: ['Jump','Shapeshift','Snarl'],
       svgColor: '#482e09ff',
