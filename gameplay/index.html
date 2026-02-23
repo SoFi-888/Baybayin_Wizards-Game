@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baybayin Wizards</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/gamestyle.css" />
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="top-bar__left">
+    <div class="score-badge">
+      <span class="score-label">LEX</span>
+      <span class="score-value" id="scoreDisplay">0</span>
+    </div>
+    <div class="level-badge" id="levelBadge">LEVEL <span id="levelNum">1</span></div>
+    <div class="player-lives" id="playerLives"><!-- hearts --></div>
+  </div>
+
+  <div class="top-bar__center">
+    <div class="chapter-banner">
+      <span id="chapterTitle">Chapter 1: The Ancient Scroll</span>
+    </div>
+    <div class="word-display-bar">
+      <div class="word-tiles-row" id="wordTilesRow"><!-- built word tiles --></div>
+    </div>
+  </div>
+
+  <div class="top-bar__right">
+    <div class="enemy-name-badge" id="enemyName">Manananggal</div>
+    <div class="enemy-lives" id="enemyLives"><!-- enemy hearts --></div>
+  </div>
+</header>
+
+<section class="battle-stage">
+  <!-- Background -->
+  <div class="stage-bg">
+    <div class="stage-clouds">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+    </div>
+  </div>
+
+  <!-- Wooden floor -->
+  <div class="stage-floor">
+    <div class="floor-planks"></div>
+    <div class="floor-rail"></div>
+  </div>
+
+    <div class="enemy-desc" id="enemyDesc">
+      <p class="enemy-desc__name">Mud frog</p>
+      <p class="enemy-desc__lore">A muddy-looking frog with high defenses but walks slow.</p>
+      <ul class="enemy-moves">
+        <li class="move"><span class="move-icon">🦷</span> <span class="move-name">Bite</span></li>
+        <li class="move"><span class="move-icon">💥</span> <span class="move-stars">★★</span> <span class="move-name">Pulverize Tile</span></li>
+        <li class="move move--heal"><span class="move-icon">❤</span> <span class="move-name">Regenerate</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="game-floor">
+
+  <div class="curtain-panel curtain-panel--left">
+    <div class="curtain-top"></div>
+    <div class="panel-content">
+      <p class="panel-title">Items</p>
+      <div class="item-slots">
+        <div class="item-slot" id="item0">
+          <div class="item-icon">🏹</div>
+          <div class="item-name">Bow of Zyx</div>
+          <button class="item-use-btn" data-item="0">Use</button>
+        </div>
+        <div class="item-slot" id="item1">
+          <div class="item-icon">🦊</div>
+          <div class="item-name">Golden Fleece</div>
+          <button class="item-use-btn" data-item="1">Use</button>
+        </div>
+        <div class="item-slot item-slot--empty" id="item2">
+          <div class="item-icon">—</div>
+          <div class="item-name">empty slot</div>
+        </div>
+      </div>
+      <!-- Hint display -->
+      <div class="hint-panel">
+        <p class="hint-panel__label">ᜑ Hint</p>
+        <p class="hint-panel__roman hidden" id="hintRoman"></p>
+        <p class="hint-panel__count" id="hintCount">3 hints left</p>
+      </div>
+    </div>
+    <div class="curtain-bottom"></div>
+  </div>
+
+  <div class="center-panel">
+    <div class="combo-display" id="comboDisplay">
+      <span class="combo-text" id="comboText">x1</span>
+      <span class="combo-label">COMBO</span>
+    </div>
+
+    <!-- Prompt -->
+    <div class="word-prompt">
+      <span class="word-prompt__label">Spell:</span>
+      <span class="word-prompt__baybayin" id="promptBaybayin"></span>
+      <span class="word-prompt__roman hidden" id="promptRoman"></span>
+      <span class="word-prompt__meaning" id="promptMeaning"></span>
+    </div>
+
+    <!-- Tile Grid -->
+    <div class="tile-grid" id="tileGrid"></div>
+
+    <div class="action-row">
+      <button class="action-btn action-btn--scramble" id="btnScramble">⟳ Scramble</button>
+      <button class="action-btn action-btn--attack"   id="btnAttack">⚔ Attack!</button>
+      <button class="action-btn action-btn--hint"     id="btnHint">ᜑ Hint</button>
+      <button class="action-btn action-btn--menu"     id="btnMenu">Menu</button>
+    </div>
+  </div>
+
+  <!-- Enemy info -->
+  <div class="curtain-panel curtain-panel--right">
+    <div class="curtain-top"></div>
+    <div class="panel-content">
+      <p class="panel-title">Word Info</p>
+      <div class="word-info-box">
+        <p class="wi-baybayin" id="wiBaybayin"></p>
+        <p class="wi-roman"    id="wiRoman"></p>
+        <p class="wi-meaning"  id="wiMeaning"></p>
+        <p class="wi-points"   id="wiPoints"></p>
+      </div>
+      <div class="streak-box">
+        <p class="streak-label">Best Streak</p>
+        <p class="streak-val" id="streakVal">0</p>
+      </div>
+    </div>
+    <div class="curtain-bottom"></div>
+  </div>
+
+</section>
+
+<!-- Overlay feedback --->
+<div class="feedback-layer" id="feedbackLayer"></div>
+
+<div class="overlay hidden" id="pauseOverlay">
+  <div class="overlay-box">
+    <h2 class="overlay-title">— Paused —</h2>
+    <button class="ol-btn ol-btn--primary" id="btnResumePause">▶ Resume</button>
+    <button class="ol-btn"                 id="btnRestartPause">↺ Restart</button>
+    <button class="ol-btn"                 id="btnBackMenu">⬅ Main Menu</button>
+  </div>
+</div>
+
+<div class="overlay hidden" id="gameOverOverlay">
+  <div class="overlay-box">
+    <div class="ol-baybayin">ᜆᜉᜓᜐ᜔</div>
+    <h2 class="overlay-title">Game Over</h2>
+    <div class="ol-divider"></div>
+    <p class="ol-stat">Final Score &nbsp;<strong id="finalScore">0</strong></p>
+    <p class="ol-stat">Words Spelled &nbsp;<strong id="finalWords">0</strong></p>
+    <p class="ol-stat">Best Combo &nbsp;<strong id="finalCombo">x1</strong></p>
+    <div class="ol-divider"></div>
+    <button class="ol-btn ol-btn--primary" id="btnPlayAgain">↺ Play Again</button>
+    <button class="ol-btn"                 id="btnBackMenu2">⬅ Main Menu</button>
+  </div>
+</div>
+
+<div class="overlay hidden" id="victoryOverlay">
+  <div class="overlay-box overlay-box--victory">
+    <div class="ol-baybayin gold">ᜈᜆᜒᜄ᜔ᜉᜓ!</div>
+    <h2 class="overlay-title gold">Victory!</h2>
+    <div class="ol-divider"></div>
+    <p class="ol-stat">Score &nbsp;<strong id="victoryScore">0</strong></p>
+    <div class="ol-divider"></div>
+    <button class="ol-btn ol-btn--primary" id="btnNextChapter">Next Chapter ▶</button>
+    <button class="ol-btn"                 id="btnBackMenu3">⬅ Main Menu</button>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/HUD.js"></script>
+<script src="js/TileGrid.js"></script>
+<script src="js/WordBuilder.js"></script>
+<script src="js/EnemyManager.js"></script>
+<script src="js/GameEngine.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

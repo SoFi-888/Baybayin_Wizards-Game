@@ -1,0 +1,101 @@
+const DATA = {
+
+  /* ── Baybayin word list ────────────────────────────────── */
+  words: [
+    { baybayin:['ᜊ','ᜑ','ᜀ','ᜌ'],           roman:'bahay',  meaning:'house',         points:100 },
+    { baybayin:['ᜀ','ᜇ','ᜀ','ᜏ'],           roman:'araw',   meaning:'sun / day',      points:100 },
+    { baybayin:['ᜎ','ᜓ','ᜉ','ᜀ'],           roman:'lupa',   meaning:'earth / soil',   points:100 },
+    { baybayin:['ᜉ','ᜓ','ᜐ','ᜓ'],           roman:'puso',   meaning:'heart',          points:110 },
+    { baybayin:['ᜊ','ᜓ','ᜑ','ᜒ','ᜈ᜔'],     roman:'buhin',  meaning:'to erase',       points:120 },
+    { baybayin:['ᜆ','ᜓ','ᜊ','ᜒ','ᜄ'],      roman:'tubig',  meaning:'water',          points:120 },
+    { baybayin:['ᜊ','ᜓ','ᜃ','ᜒ','ᜇ'],      roman:'bukid',  meaning:'farm / field',   points:120 },
+    { baybayin:['ᜄ','ᜓ','ᜎ','ᜓ'],           roman:'gulo',   meaning:'chaos',          points:110 },
+    { baybayin:['ᜋ','ᜓ','ᜃ','ᜑ','ᜀ'],      roman:'mukha',  meaning:'face',           points:130 },
+    { baybayin:['ᜇ','ᜒ','ᜏ','ᜀ'],           roman:'diwa',   meaning:'spirit / soul',  points:140, bonus:true },
+    { baybayin:['ᜑ','ᜒ','ᜋ','ᜀ'],           roman:'hima',   meaning:'to stroke',      points:110 },
+    { baybayin:['ᜐ','ᜓ','ᜎ','ᜒ'],           roman:'suli',   meaning:'to return',      points:110 },
+    { baybayin:['ᜃ','ᜓ','ᜃ','ᜓ'],           roman:'kuko',   meaning:'fingernail',     points:100 },
+    { baybayin:['ᜉ','ᜒ','ᜆ','ᜀ'],           roman:'pita',   meaning:'desire',         points:100 },
+    { baybayin:['ᜋ','ᜓ','ᜎ','ᜀ'],           roman:'mula',   meaning:'from / origin',  points:100 },
+    { baybayin:['ᜑ','ᜒ','ᜉ','ᜓ','ᜈ᜔'],     roman:'hipon',  meaning:'shrimp',         points:130 },
+    { baybayin:['ᜆ','ᜓ','ᜄ','ᜓ'],           roman:'tugo',   meaning:'to match',       points:110 },
+    { baybayin:['ᜅ','ᜒ','ᜐ','ᜒ','ᜆ᜔'],    roman:'ngisit', meaning:'to grin',        points:160, bonus:true },
+    { baybayin:['ᜁ','ᜊ','ᜓ'],               roman:'ibu',    meaning:'to carry',       points: 80 },
+    { baybayin:['ᜃ','ᜓ','ᜆ','ᜒ','ᜉ᜔'],    roman:'kutip',  meaning:'to pick up',     points:130 },
+    { baybayin:['ᜑ','ᜒ','ᜈ','ᜒ'],           roman:'hini',   meaning:'to ask gently',  points:110 },
+    { baybayin:['ᜉ','ᜓ','ᜆ','ᜓ'],           roman:'puto',   meaning:'rice cake',      points:100 },
+    { baybayin:['ᜊ','ᜓ','ᜃ','ᜓ'],           roman:'buko',   meaning:'young coconut',  points:100 },
+    { baybayin:['ᜎ','ᜒ','ᜉ','ᜓ'],           roman:'lipu',   meaning:'to turn away',   points:110 },
+  ],
+
+  /* ── Tile pool ─────────────────────────────────────────── */
+  tilePool: [
+    { char:'ᜀ', roman:'a'   },
+    { char:'ᜁ', roman:'i'   },
+    { char:'ᜂ', roman:'u'   },
+    { char:'ᜃ', roman:'ka'  },
+    { char:'ᜄ', roman:'ga'  },
+    { char:'ᜅ', roman:'nga' },
+    { char:'ᜆ', roman:'ta'  },
+    { char:'ᜇ', roman:'da'  },
+    { char:'ᜈ', roman:'na'  },
+    { char:'ᜉ', roman:'pa'  },
+    { char:'ᜊ', roman:'ba'  },
+    { char:'ᜋ', roman:'ma'  },
+    { char:'ᜌ', roman:'ya'  },
+    { char:'ᜍ', roman:'ra'  },
+    { char:'ᜎ', roman:'la'  },
+    { char:'ᜏ', roman:'wa'  },
+    { char:'ᜐ', roman:'sa'  },
+    { char:'ᜑ', roman:'ha'  },
+    { char:'ᜒ', roman:'i'   },
+    { char:'ᜓ', roman:'u'   },
+    { char:'ᜈ᜔', roman:'n' },
+    { char:'ᜆ᜔', roman:'t' },
+    { char:'ᜉ᜔', roman:'p' },
+  ],
+
+  commonChars: ['ᜀ','ᜁ','ᜂ','ᜃ','ᜆ','ᜈ','ᜉ','ᜊ','ᜋ','ᜎ','ᜑ','ᜒ','ᜓ'],
+
+  /* ── Enemies ───────────────────────────────────────────── */
+  enemies: [
+    {
+      name: 'Mud Frog',
+      lore: 'A shape-shifting monster feared across the archipelago. It prowls villages at night.',
+      maxHP: 3,
+      moves: ['Bite','Shapeshift','Snarl'],
+      svgColor: '#8b4060',
+      chapter: 1,
+    },
+    {
+      name: 'Manananggal',
+      lore: 'Detaches its upper body at night. Prey on sleeping villagers with its elongated tongue.',
+      maxHP: 4,
+      moves: ['Bite','Pulverize Tile ★★','Regenerate ❤'],
+      svgColor: '#4a6080',
+      chapter: 1,
+    },
+    {
+      name: 'Tikbalang',
+      lore: 'A half-horse demon lurking in dark forests, luring travelers off the path.',
+      maxHP: 5,
+      moves: ['Stomp ★','Confuse','Dark Neigh ★★'],
+      svgColor: '#604020',
+      chapter: 2,
+    },
+    {
+      name: 'Kapre',
+      lore: 'A giant tree-dwelling spirit that smokes a giant tobacco pipe and causes misfortune.',
+      maxHP: 6,
+      moves: ['Smash ★★','Smoke Cloud','Tree Crush ★★★'],
+      svgColor: '#305030',
+      chapter: 2,
+    },
+  ],
+
+  /* ── Chapters ──────────────────────────────────────────── */
+  chapters: [
+    { title:'Chapter 1: The Enchanted Forest',  enemyIndices:[0,1] },
+    { title:'Chapter 2: The Enchanted Forest',  enemyIndices:[2,3] },
+  ],
+};
