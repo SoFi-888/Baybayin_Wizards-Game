@@ -6,32 +6,28 @@ class SettingsModal {
     this._bindEvents();
   }
 
-  /** Opens the settings modal */
+  /** Open Settings */
   open() {
     this.overlay.classList.add('is-open');
   }
 
-  /** Closes the settings modal */
   close() {
     this.overlay.classList.remove('is-open');
   }
 
-  /** Returns whether the modal is currently open */
   isOpen() {
     return this.overlay.classList.contains('is-open');
   }
 
-  /** Binds all modal interaction events */
   _bindEvents() {
     // Close button
     this.closeBtn.addEventListener('click', () => this.close());
 
-    // Click outside modal box to close
     this.overlay.addEventListener('click', (e) => {
       if (e.target === this.overlay) this.close();
     });
 
-    // Escape key to close
+    // Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.isOpen()) this.close();
     });
@@ -44,8 +40,7 @@ class SettingsModal {
         document.exitFullscreen?.();
       }
     });
-
-    // Volume slider — update gradient fill to reflect value
+    // Volume Slider
     const slider = document.getElementById('volumeSlider');
     slider.addEventListener('input', function () {
       this.style.background =
