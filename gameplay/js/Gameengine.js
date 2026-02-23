@@ -213,20 +213,20 @@ class GameEngine {
 
     document.getElementById('btnResumePause').addEventListener('click', () => this._closePause());
     document.getElementById('btnRestartPause').addEventListener('click', () => { this._closePause(); this.reset(); });
-    document.getElementById('btnBackMenu').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('btnBackMenu').addEventListener('click', () => window.location.href = '/template/index.html');
 
     document.getElementById('btnPlayAgain').addEventListener('click', () => {
       document.getElementById('gameOverOverlay').classList.add('hidden');
       this.reset();
     });
-    document.getElementById('btnBackMenu2').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('btnBackMenu2').addEventListener('click', () => window.location.href = '/template/index.html');
 
     document.getElementById('btnNextChapter').addEventListener('click', () => {
       document.getElementById('victoryOverlay').classList.add('hidden');
       this.resume();
       this._startQueue();
     });
-    document.getElementById('btnBackMenu3').addEventListener('click', () => window.location.href = '../index.html');
+    document.getElementById('btnBackMenu3').addEventListener('click', () => window.location.href = '/template/index.html');
 
     this.builder.onSlotClick((slot) => {
       if (this._paused) return;

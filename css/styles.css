@@ -41,15 +41,13 @@ body {
 /* ─── Title Panel ────────────────────────────────────────────── */
 .title-panel {
   position: relative;
-  background: linear-gradient(160deg, #1e0f04 0%, #110800 60%, #1a0d04 100%);
+  background: #1e0f04;
   border: 2px solid var(--gold-dark);
   border-radius: 6px;
   padding: 40px 60px 36px;
   text-align: center;
   box-shadow:
-    0 0 0 1px #d4a01726,
-    inset 0 0 60px #00000099,
-    0 20px 60px #000000cc;
+    0 0 0 1px #d4a01726;
   min-width: min(520px, 90vw);
 }
 
@@ -78,7 +76,6 @@ body {
 
   text-shadow:
     0 0 6px rgba(212,160,23,0.6),
-    0 2px 4px rgba(0,0,0,0.8);
 }
 
 .title-en {
@@ -93,7 +90,6 @@ body {
 
   text-shadow:
     0 0 4px rgba(212,160,23,0.5),
-    0 2px 3px rgba(0,0,0,0.8);
 }
 
 .subtitle {
@@ -108,7 +104,7 @@ body {
 .divider {
   width: 60%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold), var(--gold-dark), transparent);
+  background: #8b6510;
   margin: 0 auto 32px;
 }
 
@@ -130,7 +126,6 @@ body {
   justify-content: center;
   gap: 12px;
   padding: 14px 28px;
-  border: none;
   border-radius: 4px;
   cursor: pointer;
   font-family: 'Cinzel Decorative', serif;
@@ -159,27 +154,24 @@ body {
 
 /* ─── Start Button ───────────────────────────────────────────── */
 .btn--start {
-  background: linear-gradient(135deg, #c49010 0%, #d4a017 40%, #e8b830 60%, #c49010 100%);
+  background: #c49010;
   color: var(--ink);
-  box-shadow: 0 4px 20px rgba(212,160,23,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
 }
 .btn--start:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 30px rgba(212,160,23,0.65), inset 0 1px 0 rgba(255,255,255,0.2);
   filter: brightness(1.1);
+  color: var(--gold-light);
 }
 
 /* ─── Resume Button ──────────────────────────────────────────── */
 .btn--resume {
-  background: linear-gradient(135deg, #c49010 0%, #d4a017 40%, #e8b830 60%, #c49010 100%);
+  background: #c49010;
   color: var(--ink);
   border: 1px solid var(--gold-dark);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(212,160,23,0.1);
 }
 .btn--resume:hover {
   transform: translateY(-3px) scale(1.02);
   border-color: var(--gold);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
   color: var(--gold-light);
 }
 .btn--resume.btn--disabled {
@@ -190,15 +182,13 @@ body {
 
 /* ─── Settings Button ────────────────────────────────────────── */
 .btn--settings {
-  background: linear-gradient(135deg, #c49010 0%, #d4a017 40%, #e8b830 60%, #c49010 100%);
+  background: #c49010;
   color: var(--ink);
   border: 1px solid rgba(139,101,16,0.4);
-  box-shadow: 0 8px 30px rgba(212,160,23,0.65), inset 0 1px 0 rgba(255,255,255,0.2);
 }
 .btn--settings:hover {
   color: var(--parchment-dim);
   border-color: var(--gold-dark);
-  box-shadow: 0 8px 30px rgba(212,160,23,0.65), inset 0 1px 0 rgba(255,255,255,0.2);
   filter: brightness(1.1);
 }
 
@@ -318,23 +308,19 @@ body {
   border-radius: 50%;
   background: var(--parchment-dim);
   transition: transform 0.2s;
-  pointer-events: none;
 }
 
 .toggle input:checked ~ .toggle-thumb {
   transform: translateX(22px);
-  background: var(--gold-light);
 }
 
 /* ─── Volume Slider ──────────────────────────────────────────── */
 .volume-slider {
-  -webkit-appearance: none;
   appearance: none;
   width: 100px;
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--gold) 70%, #2a1505 70%);
-  outline: none;
+  background: #2a1505;
   cursor: pointer;
 }
 
@@ -344,5 +330,4 @@ body {
   height: 14px;
   border-radius: 50%;
   background: var(--gold-light);
-  box-shadow: 0 0 6px rgba(212,160,23,0.6);
 }
