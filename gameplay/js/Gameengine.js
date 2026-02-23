@@ -1,12 +1,7 @@
-/* ═══════════════════════════════════════════════════════════
-   js/GameEngine.js  —  Core game loop
-   Connects HUD, TileGrid, WordBuilder, EnemyManager
-   Handles: word checking, hints, attack, feedback, save
-   ═══════════════════════════════════════════════════════════ */
 class GameEngine {
   static HINTS_MAX     = 3;
   static SCRAMBLES_MAX = 3;
-  static WORDS_PER_ENEMY = 4; // words needed to defeat enemy
+  static WORDS_PER_ENEMY = 4;
 
   constructor() {
     this.hud     = new HUD();

@@ -12,7 +12,7 @@
 <header class="top-bar">
   <div class="top-bar__left">
     <div class="score-badge">
-      <span class="score-label">LEX</span>
+      <span class="score-label">TALA</span>
       <span class="score-value" id="scoreDisplay">0</span>
     </div>
     <div class="level-badge" id="levelBadge">LEVEL <span id="levelNum">1</span></div>
@@ -24,39 +24,38 @@
       <span id="chapterTitle">Chapter 1: The Ancient Scroll</span>
     </div>
     <div class="word-display-bar">
-      <div class="word-tiles-row" id="wordTilesRow"><!-- built word tiles --></div>
+      <div class="word-tiles-row" id="wordTilesRow"></div>
     </div>
   </div>
 
   <div class="top-bar__right">
-    <div class="enemy-name-badge" id="enemyName">Manananggal</div>
-    <div class="enemy-lives" id="enemyLives"><!-- enemy hearts --></div>
+    <div class="enemy-name-badge" id="enemyName">Pebble frog</div>
+    <div class="enemy-lives" id="enemyLives"></div>
   </div>
 </header>
 
 <section class="battle-stage">
-  <!-- Background -->
-  <div class="stage-bg">
-    <div class="stage-clouds">
-      <div class="cloud cloud-1"></div>
-      <div class="cloud cloud-2"></div>
-      <div class="cloud cloud-3"></div>
+  <!-- Background image -->
+  <div class="stage-bg"></div>
+
+  <!-- Tala (hero) -->
+  <div class="hero-side">
+    <div class="character hero" id="heroChar">
+      <img class="hero-img" src="/img/Tala.png" alt="Tala" />
     </div>
+    <div class="hero-label">Tala</div>
   </div>
 
-  <!-- Wooden floor -->
-  <div class="stage-floor">
-    <div class="floor-planks"></div>
-    <div class="floor-rail"></div>
-  </div>
-
+    <div class="enemy-side">
+    <div class="character enemy" id="enemyChar">
+      <img class="enemy-img" src="/img/Pebble_frog.png" alt="Pebble Frog" />
+    </div>
     <div class="enemy-desc" id="enemyDesc">
-      <p class="enemy-desc__name">Mud frog</p>
-      <p class="enemy-desc__lore">A muddy-looking frog with high defenses but walks slow.</p>
+      <p class="enemy-desc__name">Pebble Frog</p>
       <ul class="enemy-moves">
-        <li class="move"><span class="move-icon">🦷</span> <span class="move-name">Bite</span></li>
-        <li class="move"><span class="move-icon">💥</span> <span class="move-stars">★★</span> <span class="move-name">Pulverize Tile</span></li>
-        <li class="move move--heal"><span class="move-icon">❤</span> <span class="move-name">Regenerate</span></li>
+        <li class="move"><span class="move-icon">🐸</span> <span class="move-name">Tongue Lash</span></li>
+        <li class="move"><span class="move-icon">💥</span> <span class="move-stars">★★</span> <span class="move-name">Rock Slam</span></li>
+        <li class="move move--heal"><span class="move-icon">🪨</span> <span class="move-name">Stone Shell</span></li>
       </ul>
     </div>
   </div>
@@ -137,6 +136,8 @@
     </div>
     <div class="curtain-bottom"></div>
   </div>
+
+</section>
 
 </section>
 

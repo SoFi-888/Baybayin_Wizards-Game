@@ -1,11 +1,7 @@
-/* ═══════════════════════════════════════════════════════════
-   js/WordBuilder.js  —  Word tile strip at the top of the screen
-   Manages the selected letter sequence display
-   ═══════════════════════════════════════════════════════════ */
 class WordBuilder {
   constructor(rowId) {
     this.rowEl   = document.getElementById(rowId);
-    this.slots   = [];   // [{ char, roman, tileIndex }]
+    this.slots   = [];
     this.maxSlots = 10;
     this._slotClickCb = null;
     this._render();

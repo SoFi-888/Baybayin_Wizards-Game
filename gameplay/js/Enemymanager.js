@@ -1,7 +1,3 @@
-/* ═══════════════════════════════════════════════════════════
-   js/EnemyManager.js  —  Enemy HP, defeat animation,
-   progression through enemies per chapter
-   ═══════════════════════════════════════════════════════════ */
 class EnemyManager {
   constructor() {
     this._enemies      = DATA.enemies;
@@ -54,7 +50,6 @@ class EnemyManager {
     // Update name
     this._nameEl.textContent = enemy.name;
 
-    // Update description panel
     if (this._descName)  this._descName.textContent  = enemy.name;
     if (this._descLore)  this._descLore.textContent  = enemy.lore;
     if (this._descMoves) {
@@ -67,7 +62,6 @@ class EnemyManager {
     this._enemyChar.classList.remove('dead');
   }
 
-  /* ── Deal damage to enemy ───────────────────────────── */
   damageEnemy(dmg = 1) {
     this._currentHP = Math.max(0, this._currentHP - dmg);
     this._renderEnemyHP();
@@ -82,7 +76,6 @@ class EnemyManager {
     if (this._currentHP <= 0) {
       this._defeatEnemy();
     } else {
-      // Enemy counter-attacks occasionally
       if (Math.random() < 0.3) {
         setTimeout(() => {
           if (this._onPlayerHit) this._onPlayerHit();
@@ -107,7 +100,7 @@ class EnemyManager {
       this._enemyIdx = 0;
       this._chapterIdx++;
       if (this._chapterIdx >= DATA.chapters.length) {
-        this._chapterIdx = 0; // loop chapters
+        this._chapterIdx = 0;
       }
       if (this._onChapterEnd) this._onChapterEnd();
     } else {
@@ -126,9 +119,7 @@ class EnemyManager {
     }
   }
 
-  /* ── Attack hero animation ──────────────────────────── */
   triggerEnemyAttack() {
-    // Brief visual flash on the enemy (like winding up)
     this._enemyChar.style.filter = 'brightness(1.8) drop-shadow(0 0 12px red)';
     setTimeout(() => { this._enemyChar.style.filter = ''; }, 300);
   }
