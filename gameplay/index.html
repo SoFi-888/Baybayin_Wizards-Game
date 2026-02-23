@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Baybayin Wizards</title>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/gamestyle.css" />
 </head>
 <body>
@@ -16,53 +16,39 @@
       <span class="score-value" id="scoreDisplay">0</span>
     </div>
     <div class="level-badge" id="levelBadge">LEVEL <span id="levelNum">1</span></div>
-    <div class="player-lives" id="playerLives"><!-- hearts --></div>
+    <div class="player-lives" id="playerLives"></div>
   </div>
-
   <div class="top-bar__center">
-    <div class="chapter-banner">
-      <span id="chapterTitle">Chapter 1: The Ancient Scroll</span>
-    </div>
+    <div class="chapter-banner"><span id="chapterTitle">Chapter 1: The Ancient Scroll</span></div>
     <div class="word-display-bar">
       <div class="word-tiles-row" id="wordTilesRow"></div>
     </div>
   </div>
-
   <div class="top-bar__right">
-    <div class="enemy-name-badge" id="enemyName">Pebble frog</div>
+    <div class="enemy-name-badge" id="enemyName">Pebble Frog</div>
     <div class="enemy-lives" id="enemyLives"></div>
   </div>
 </header>
 
 <section class="battle-stage">
-  <!-- Background image -->
   <div class="stage-bg"></div>
-
-  <!-- Tala (hero) -->
   <div class="hero-side">
     <div class="character hero" id="heroChar">
       <img class="hero-img" src="/img/Tala.png" alt="Tala" />
     </div>
     <div class="hero-label">Tala</div>
   </div>
-
-    <div class="enemy-side">
+  <div class="enemy-side">
     <div class="character enemy" id="enemyChar">
       <img class="enemy-img" src="/img/Pebble_frog.png" alt="Pebble Frog" />
     </div>
     <div class="enemy-desc" id="enemyDesc">
       <p class="enemy-desc__name">Pebble Frog</p>
-      <ul class="enemy-moves">
-        <li class="move"><span class="move-icon">🐸</span> <span class="move-name">Tongue Lash</span></li>
-        <li class="move"><span class="move-icon">💥</span> <span class="move-stars">★★</span> <span class="move-name">Rock Slam</span></li>
-        <li class="move move--heal"><span class="move-icon">🪨</span> <span class="move-name">Stone Shell</span></li>
-      </ul>
     </div>
   </div>
 </section>
 
 <section class="game-floor">
-
   <div class="curtain-panel curtain-panel--left">
     <div class="curtain-top"></div>
     <div class="panel-content">
@@ -83,9 +69,8 @@
           <div class="item-name">empty slot</div>
         </div>
       </div>
-      <!-- Hint display -->
       <div class="hint-panel">
-        <p class="hint-panel__label">ᜑ Hint</p>
+        <p class="hint-panel__label">Hint</p>
         <p class="hint-panel__roman hidden" id="hintRoman"></p>
         <p class="hint-panel__count" id="hintCount">3 hints left</p>
       </div>
@@ -98,27 +83,21 @@
       <span class="combo-text" id="comboText">x1</span>
       <span class="combo-label">COMBO</span>
     </div>
-
-    <!-- Prompt -->
     <div class="word-prompt">
       <span class="word-prompt__label">Spell:</span>
       <span class="word-prompt__baybayin" id="promptBaybayin"></span>
       <span class="word-prompt__roman hidden" id="promptRoman"></span>
       <span class="word-prompt__meaning" id="promptMeaning"></span>
     </div>
-
-    <!-- Tile Grid -->
     <div class="tile-grid" id="tileGrid"></div>
-
     <div class="action-row">
-      <button class="action-btn action-btn--scramble" id="btnScramble">⟳ Scramble</button>
-      <button class="action-btn action-btn--attack"   id="btnAttack">⚔ Attack!</button>
-      <button class="action-btn action-btn--hint"     id="btnHint">ᜑ Hint</button>
+      <button class="action-btn action-btn--scramble" id="btnScramble">Scramble</button>
+      <button class="action-btn action-btn--attack"   id="btnAttack">Attack!</button>
+      <button class="action-btn action-btn--hint"     id="btnHint">Hint</button>
       <button class="action-btn action-btn--menu"     id="btnMenu">Menu</button>
     </div>
   </div>
 
-  <!-- Enemy info -->
   <div class="curtain-panel curtain-panel--right">
     <div class="curtain-top"></div>
     <div class="panel-content">
@@ -136,12 +115,8 @@
     </div>
     <div class="curtain-bottom"></div>
   </div>
-
 </section>
 
-</section>
-
-<!-- Overlay feedback --->
 <div class="feedback-layer" id="feedbackLayer"></div>
 
 <div class="overlay hidden" id="pauseOverlay">
@@ -186,6 +161,5 @@
 <script src="js/EnemyManager.js"></script>
 <script src="js/GameEngine.js"></script>
 <script src="js/main.js"></script>
-
 </body>
 </html>

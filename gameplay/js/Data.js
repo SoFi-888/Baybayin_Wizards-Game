@@ -71,7 +71,7 @@ const DATA = {
       name: 'Bubble Tarsier',
       lore: 'A bubble tarsier lives along shallow coral reefs, perching on coral branches near the shore. It forms clear bubbles over its large eyes like goggles, blocking saltwater so it can see underwater.',
       maxHP: 4,
-      moves: ['Pound','Illusion ★★','Hydrate ❤'],
+      moves: ['Pound','Illusion','Hydrate'],
       svgColor: '#31a275ff',
       chapter: 1,
     },
@@ -79,7 +79,7 @@ const DATA = {
       name: 'Fire Swallow',
       lore: 'A fire swallow soars through the night with a crown of fire, leaving a trail of embers that guide lost travelers back to safety.',
       maxHP: 5,
-      moves: ['Scratch ★','Guide','Bright Screech ★★'],
+      moves: ['Scratch','Guide','Bright Screech'],
       svgColor: '#e07510ff',
       chapter: 2,
     },
@@ -87,7 +87,7 @@ const DATA = {
       name: 'Cloud Turtle',
       lore: 'A cloud turtle drifts slowly across mountain skies, its body is light enough to float on gentle winds. Instead of a shell, it envelopes itself with a light, fluffy cloud on its back instead.',
       maxHP: 6,
-      moves: ['Smash ★★','Smoke Cloud','Thunderstrike ★★★'],
+      moves: ['Smash','Smoke Cloud','Thunderstrike'],
       svgColor: '#57b4d5ff',
       chapter: 2,
     },
@@ -96,6 +96,6 @@ const DATA = {
   /* ── Chapters ──────────────────────────────────────────── */
   chapters: [
     { title:'Chapter 1: The Enchanted Forest',  enemyIndices:[0,1] },
-    { title:'Chapter 2: The Enchanted Forest',  enemyIndices:[2,3] },
+    { title:'Chapter 2: Kalaspastangan',  enemyIndices:[2,3] },
   ],
 };

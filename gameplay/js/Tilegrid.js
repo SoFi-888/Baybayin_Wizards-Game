@@ -1,3 +1,4 @@
+/* TileGrid.js — 4×4 Baybayin tile board */
 class TileGrid {
   static COLS = 4;
   static ROWS = 4;
@@ -7,11 +8,10 @@ class TileGrid {
     this.container   = document.getElementById(containerId);
     this.onTileClick = onTileClick;
     this.tiles       = [];
-    this.showRoman   = false;
+    this.showRoman   = true;
     this._build();
   }
 
-  /* ── Build grid ─────────────────────────────────────────── */
   _build() {
     this.container.innerHTML = '';
     this.tiles = [];
@@ -27,7 +27,7 @@ class TileGrid {
   _makeEl(data, idx) {
     const el = document.createElement('div');
     el.className = 'tile tile--spawning';
-    el.style.animationDelay = (idx * 0.04) + 's';
+    el.style.animationDelay = (idx * 0.03) + 's';
 
     const cs = document.createElement('span');
     cs.className = 'tile-char';
@@ -49,7 +49,6 @@ class TileGrid {
     return el;
   }
 
-  /* ── Random tile data ──────────────────────────────────── */
   _rndData() {
     const pool   = DATA.tilePool;
     const common = DATA.commonChars;
@@ -60,11 +59,10 @@ class TileGrid {
     } else {
       picked = pool[Math.floor(Math.random() * pool.length)];
     }
-    const bonus = Math.random() < 0.06; // 6% bonus tile
+    const bonus = Math.random() < 0.06;
     return { char: picked.char, roman: picked.roman, selected: false, used: false, bonus, el: null };
   }
 
-  /* ── Selection ─────────────────────────────────────────── */
   selectTile(idx) {
     const t = this.tiles[idx];
     t.selected = true;
@@ -83,8 +81,7 @@ class TileGrid {
     });
   }
 
-  /* ── Clear & refill ────────────────────────────────────── */
-  clearAndRefill(indices, delay = 380) {
+  clearAndRefill(indices, delay = 360) {
     return new Promise(resolve => {
       indices.forEach(i => {
         this.tiles[i].used = true;
@@ -104,8 +101,9 @@ class TileGrid {
     });
   }
 
-  /* ── Scramble all non-selected, non-used tiles ─────────── */
-  scramble() {
+  /* ── Scramble non-selected, non-used tiles then guarantee word chars ── */
+  scramble(requiredChars) {
+    // Step 1: randomise every free tile
     this.tiles.forEach(t => {
       if (!t.used && !t.selected) {
         const d = this._rndData();
@@ -116,41 +114,66 @@ class TileGrid {
         t.el.querySelector('.tile-roman').textContent = d.roman;
         t.el.classList.toggle('tile--bonus', d.bonus);
         t.el.classList.add('tile--spawning');
-        t.el.addEventListener('animationend', () =>
-          t.el.classList.remove('tile--spawning'), { once:true });
+        t.el.addEventListener('animationend',
+          () => t.el.classList.remove('tile--spawning'), { once: true });
       }
     });
+
+    // Step 2: if caller passed the word, guarantee ALL its chars are present
+    if (requiredChars && requiredChars.length) {
+      this.ensureChars(requiredChars);
+    }
   }
 
-  /* ── Ensure certain chars exist ────────────────────────── */
+  /* ── Guarantee every needed char exists in FREE (not used, not selected) tiles ── */
   ensureChars(chars) {
-    chars.forEach(char => {
-      const exists = this.tiles.some(t => t.char === char && !t.used);
-      if (!exists) {
-        const candidates = this.tiles.filter(t => !t.used && !t.selected);
-        if (!candidates.length) return;
-        const target = candidates[Math.floor(Math.random() * candidates.length)];
-        const pool   = DATA.tilePool.find(p => p.char === char);
-        if (!pool) return;
+    // Build a frequency map of what we still need
+    const needed = {};
+    chars.forEach(c => { needed[c] = (needed[c] || 0) + 1; });
+
+    // Subtract chars already covered by free tiles
+    const free = this.tiles.filter(t => !t.used && !t.selected);
+    free.forEach(t => {
+      if (needed[t.char] > 0) needed[t.char]--;
+    });
+
+    // For each still-needed char, overwrite a random free tile
+    Object.entries(needed).forEach(([char, count]) => {
+      for (let n = 0; n < count; n++) {
+        // Pick a free tile that doesn't already hold a needed char
+        const candidates = free.filter(t => !needed[t.char] || needed[t.char] <= 0);
+        const target = candidates.length
+          ? candidates[Math.floor(Math.random() * candidates.length)]
+          : free[Math.floor(Math.random() * free.length)]; // fallback
+
+        if (!target) continue;
+
+        const pool = DATA.tilePool.find(p => p.char === char);
+        if (!pool) continue;
+
+        // Remove this tile from future candidates
+        const idx = free.indexOf(target);
+        if (idx !== -1) free.splice(idx, 1);
+
         target.char  = pool.char;
         target.roman = pool.roman;
         target.el.querySelector('.tile-char').textContent  = pool.char;
         target.el.querySelector('.tile-roman').textContent = pool.roman;
+        target.el.style.display = this.showRoman ? '' : 'none';
       }
     });
   }
 
-  /* ── Highlight hint tiles ──────────────────────────────── */
   highlightChar(char) {
     this.tiles.forEach(t => {
       if (t.char === char && !t.used && !t.selected) {
-        t.el.style.outline      = '3px solid #f0c040';
-        t.el.style.outlineOffset= '2px';
-        t.el.style.transform    = 'translateY(-4px) scale(1.1)';
+        t.el.style.outline       = '2px solid #f0c040';
+        t.el.style.outlineOffset = '2px';
+        t.el.style.transform     = 'translateY(-3px) scale(1.08)';
         setTimeout(() => {
-          t.el.style.outline      = '';
-          t.el.style.outlineOffset= '';
-          t.el.style.transform    = '';
+          t.el.style.outline       = '';
+          t.el.style.outlineOffset = '';
+          t.el.style.transform     = '';
         }, 1600);
       }
     });

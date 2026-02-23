@@ -1,7 +1,7 @@
 class GameEngine {
   static HINTS_MAX     = 3;
   static SCRAMBLES_MAX = 3;
-  static WORDS_PER_ENEMY = 4;
+  static WORDS_PER_ENEMY = 4; // words needed to defeat enemy
 
   constructor() {
     this.hud     = new HUD();
@@ -78,9 +78,8 @@ class GameEngine {
     const old = this.builder.clear();
     old.forEach(s => this.grid.deselectTile(s.tileIndex));
 
-    // Guarantee some letters exist
-    const half = Math.ceil(this._current.baybayin.length / 2);
-    this.grid.ensureChars(this._current.baybayin.slice(0, half));
+    // Guarantee ALL letters of the word exist in the grid
+    this.grid.ensureChars(this._current.baybayin);
   }
 
   /* ═════════════════════════════════════════════════════════
@@ -173,10 +172,11 @@ class GameEngine {
   _scramble() {
     if (this._paused || this._scrambLeft <= 0) return;
     this._scrambLeft--;
+    // Clear builder so no tiles are "selected" before we scramble
     const old = this.builder.clear();
     old.forEach(s => this.grid.deselectTile(s.tileIndex));
-    this.grid.scramble();
-    this.grid.ensureChars(this._current.baybayin.slice(0, 2));
+    // Pass the full word so scramble() guarantees every char is present
+    this.grid.scramble(this._current ? this._current.baybayin : []);
     this._refreshAuxUI();
     this._feedback('Shuffled!', 'points');
   }
@@ -345,9 +345,6 @@ class GameEngine {
   }
   _clearSave() { localStorage.removeItem('baybayinSave'); }
 
-  /* ═════════════════════════════════════════════════════════
-     HELPERS
-  ═════════════════════════════════════════════════════════ */
   _arrEqual(a, b) {
     return a.length === b.length && a.every((v, i) => v === b[i]);
   }
