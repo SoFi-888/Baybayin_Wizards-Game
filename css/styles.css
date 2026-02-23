@@ -1,5 +1,4 @@
 :root {
-  :root {
   --bg-deep:       #0a0604;
   --bg-mid:        #1a0f06;
   --parchment:     #f5e6c8;
@@ -49,8 +48,8 @@ body {
   text-align: center;
   box-shadow:
     0 0 0 1px #d4a01726,
-    inset 0 0 60px rgba(0, 0, 0, 0.6),
-    0 20px 60px rgba(0,0,0,0.8);
+    inset 0 0 60px #00000099,
+    0 20px 60px #000000cc;
   min-width: min(520px, 90vw);
 }
 
@@ -76,16 +75,25 @@ body {
   color: var(--gold);
   line-height: 1;
   margin-bottom: 6px;
+
+  text-shadow:
+    0 0 6px rgba(212,160,23,0.6),
+    0 2px 4px rgba(0,0,0,0.8);
 }
 
 .title-en {
   font-family: 'Cinzel Decorative', serif;
   font-size: clamp(0.85rem, 2.5vw, 1.1rem);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.35em;
-  color: var(--parchment-dim);
   text-transform: uppercase;
   margin-bottom: 4px;
+
+  color: var(--gold);
+
+  text-shadow:
+    0 0 4px rgba(212,160,23,0.5),
+    0 2px 3px rgba(0,0,0,0.8);
 }
 
 .subtitle {
@@ -163,8 +171,8 @@ body {
 
 /* ─── Resume Button ──────────────────────────────────────────── */
 .btn--resume {
-  background: linear-gradient(135deg, #2a1a06 0%, #3a2410 100%);
-  color: var(--parchment-dim);
+  background: linear-gradient(135deg, #c49010 0%, #d4a017 40%, #e8b830 60%, #c49010 100%);
+  color: var(--ink);
   border: 1px solid var(--gold-dark);
   box-shadow: 0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(212,160,23,0.1);
 }
@@ -192,16 +200,6 @@ body {
   border-color: var(--gold-dark);
   box-shadow: 0 8px 30px rgba(212,160,23,0.65), inset 0 1px 0 rgba(255,255,255,0.2);
   filter: brightness(1.1);
-}
-
-/* ─── Screen Footer ──────────────────────────────────────────── */
-.screen-footer {
-  margin-top: 22px;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  color: rgba(201,169,110,0.3);
-  text-transform: uppercase;
-  text-align: center;
 }
 
 /* ─── Settings Modal Overlay ─────────────────────────────────── */
@@ -248,6 +246,10 @@ body {
   color: var(--gold);
   margin-bottom: 28px;
   text-align: center;
+
+  text-shadow:
+    0 0 4px rgba(212,160,23,0.6),
+    0 2px 4px rgba(0,0,0,0.8);
 }
 
 .modal-close {
@@ -343,5 +345,4 @@ body {
   border-radius: 50%;
   background: var(--gold-light);
   box-shadow: 0 0 6px rgba(212,160,23,0.6);
-}
 }
