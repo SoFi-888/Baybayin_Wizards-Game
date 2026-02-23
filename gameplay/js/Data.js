@@ -61,9 +61,9 @@ const DATA = {
   enemies: [
     {
       name: 'Mud Frog',
-      lore: 'A shape-shifting monster feared across the archipelago. It prowls villages at night.',
+      lore: 'A mud frog found in swamp areas. Can be hard to find due to its unique ability of camouflaging.',
       maxHP: 3,
-      moves: ['Bite','Shapeshift','Snarl'],
+      moves: ['Jump','Shapeshift','Snarl'],
       svgColor: '#8b4060',
       chapter: 1,
     },
