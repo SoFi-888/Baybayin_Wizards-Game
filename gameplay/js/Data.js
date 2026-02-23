@@ -61,6 +61,7 @@ const DATA = {
   enemies: [
     {
       name: 'Pebble Frog',
+      image: '/img/Pebble_frog.png',
       lore: 'A pebble frog hides along dirt roads, covering itself with loose stones to blend seamlessly into the ground and stay safe from predators.',
       maxHP: 3,
       moves: ['Jump','Shapeshift','Snarl'],
@@ -69,6 +70,7 @@ const DATA = {
     },
     {
       name: 'Bubble Tarsier',
+      image: '/img/Bubble_tarsier.png',
       lore: 'A bubble tarsier lives along shallow coral reefs, perching on coral branches near the shore. It forms clear bubbles over its large eyes like goggles, blocking saltwater so it can see underwater.',
       maxHP: 4,
       moves: ['Pound','Illusion','Hydrate'],
@@ -77,6 +79,7 @@ const DATA = {
     },
     {
       name: 'Fire Swallow',
+      image: '/img/Fire_swallow.png',
       lore: 'A fire swallow soars through the night with a crown of fire, leaving a trail of embers that guide lost travelers back to safety.',
       maxHP: 5,
       moves: ['Scratch','Guide','Bright Screech'],
@@ -85,6 +88,7 @@ const DATA = {
     },
     {
       name: 'Cloud Turtle',
+      image: '/img/Cloud_turtle',
       lore: 'A cloud turtle drifts slowly across mountain skies, its body is light enough to float on gentle winds. Instead of a shell, it envelopes itself with a light, fluffy cloud on its back instead.',
       maxHP: 6,
       moves: ['Smash','Smoke Cloud','Thunderstrike'],

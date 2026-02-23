@@ -366,9 +366,11 @@ html, body {
 .feedback-layer { position: fixed; inset: 0; pointer-events: none; z-index: 80; }
 .feedback-msg {
   position: absolute;
-  font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.3rem;
-  pointer-events: none; animation: feedFloat 1.4s ease forwards;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.9); white-space: nowrap;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  pointer-events: none;
+  white-space: nowrap;
 }
 .feedback-msg.correct { color: #50dd50; }
 .feedback-msg.wrong   { color: #ff4444; }

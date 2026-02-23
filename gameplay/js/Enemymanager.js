@@ -50,6 +50,13 @@ class EnemyManager {
     // Update name
     this._nameEl.textContent = enemy.name;
 
+    // Swap enemy sprite image
+    const enemyImg = this._enemyChar.querySelector('.enemy-img');
+    if (enemyImg && enemy.image) {
+      enemyImg.src = enemy.image;
+      enemyImg.alt = enemy.name;
+    }
+
     if (this._descName)  this._descName.textContent  = enemy.name;
     if (this._descLore)  this._descLore.textContent  = enemy.lore;
     if (this._descMoves) {
@@ -108,7 +115,7 @@ class EnemyManager {
     }
   }
 
-  /* ── Render enemy HP as hearts ──────────────────────── */
+  // Enemy hearts
   _renderEnemyHP() {
     this._livesEl.innerHTML = '';
     for (let i = 0; i < this._maxHP; i++) {

@@ -1,7 +1,7 @@
 class GameEngine {
   static HINTS_MAX     = 3;
   static SCRAMBLES_MAX = 3;
-  static WORDS_PER_ENEMY = 4; // words needed to defeat enemy
+  static WORDS_PER_ENEMY = 4;
 
   constructor() {
     this.hud     = new HUD();
@@ -21,10 +21,6 @@ class GameEngine {
     this._setupEnemyCallbacks();
     this._bindUI();
   }
-
-  /* ═════════════════════════════════════════════════════════
-     PUBLIC
-  ═════════════════════════════════════════════════════════ */
   start() {
     this._paused     = false;
     this._hintsLeft  = GameEngine.HINTS_MAX;
@@ -49,9 +45,6 @@ class GameEngine {
 
   get wordsFound() { return this._wordsFound; }
 
-  /* ═════════════════════════════════════════════════════════
-     WORD QUEUE
-  ═════════════════════════════════════════════════════════ */
   _startQueue() {
     this._wordQueue = [...DATA.words].sort(() => Math.random() - 0.5);
     this._loadNextWord();
@@ -63,37 +56,27 @@ class GameEngine {
     }
     this._current = this._wordQueue.shift();
 
-    // Update prompt
+    // Update prompts
     document.getElementById('promptBaybayin').textContent = this._current.baybayin.join('');
     document.getElementById('promptRoman').textContent    = this._current.roman;
     document.getElementById('promptMeaning').textContent  = `"${this._current.meaning}"`;
 
-    // Right panel word info
     document.getElementById('wiBaybayin').textContent = this._current.baybayin.join('');
     document.getElementById('wiRoman').textContent    = this._current.roman;
     document.getElementById('wiMeaning').textContent  = this._current.meaning;
     document.getElementById('wiPoints').textContent   = `+${this._current.points} pts`;
 
-    // Clear builder
     const old = this.builder.clear();
     old.forEach(s => this.grid.deselectTile(s.tileIndex));
-
-    // Guarantee ALL letters of the word exist in the grid
     this.grid.ensureChars(this._current.baybayin);
   }
-
-  /* ═════════════════════════════════════════════════════════
-     TILE CLICK
-  ═════════════════════════════════════════════════════════ */
+  // Tile is clicked function
   _onTileClick(data, index) {
     if (this._paused) return;
     this.grid.selectTile(index);
     this.builder.addChar(data.char, data.roman, index);
   }
-
-  /* ═════════════════════════════════════════════════════════
-     ATTACK / SUBMIT
-  ═════════════════════════════════════════════════════════ */
+  // Attack function
   _attack() {
     if (this._paused || !this._current || this.builder.length === 0) return;
 
@@ -114,7 +97,6 @@ class GameEngine {
       this._current.points + (this._current.bonus ? 60 : 0)
     );
 
-    // Hero attack animation
     document.getElementById('heroChar').classList.remove('attack');
     void document.getElementById('heroChar').offsetWidth;
     document.getElementById('heroChar').classList.add('attack');
@@ -158,54 +140,38 @@ class GameEngine {
     if (!alive) {
       setTimeout(() => this._gameOver(), 700);
     } else {
-      // Clear builder after flash
       setTimeout(() => {
         const old = this.builder.clear();
         old.forEach(s => this.grid.deselectTile(s.tileIndex));
       }, 500);
     }
   }
-
-  /* ═════════════════════════════════════════════════════════
-     SCRAMBLE
-  ═════════════════════════════════════════════════════════ */
+  // Scramble words
   _scramble() {
     if (this._paused || this._scrambLeft <= 0) return;
     this._scrambLeft--;
-    // Clear builder so no tiles are "selected" before we scramble
     const old = this.builder.clear();
     old.forEach(s => this.grid.deselectTile(s.tileIndex));
-    // Pass the full word so scramble() guarantees every char is present
     this.grid.scramble(this._current ? this._current.baybayin : []);
     this._refreshAuxUI();
     this._feedback('Shuffled!', 'points');
   }
-
-  /* ═════════════════════════════════════════════════════════
-     HINT
-  ═════════════════════════════════════════════════════════ */
+  
+  // Hint function
   _useHint() {
     if (this._paused || this._hintsLeft <= 0) return;
     this._hintsLeft--;
     this._refreshAuxUI();
-
-    // Show romanization in prompt
     document.getElementById('promptRoman').classList.remove('hidden');
-
-    // Show in hint panel
     const romanEl = document.getElementById('hintRoman');
     romanEl.textContent = this._current.roman;
     romanEl.classList.remove('hidden');
     setTimeout(() => romanEl.classList.add('hidden'), 3000);
 
-    // Highlight next needed tile
     const nextChar = this._current.baybayin[this.builder.length];
     if (nextChar) this.grid.highlightChar(nextChar);
   }
 
-  /* ═════════════════════════════════════════════════════════
-     ENEMY CALLBACKS
-  ═════════════════════════════════════════════════════════ */
   _setupEnemyCallbacks() {
     this.enemy.onDefeat((defeated) => {
       this._feedback(`${defeated.name} defeated!`, 'combo');
@@ -229,10 +195,7 @@ class GameEngine {
       if (!alive) setTimeout(() => this._gameOver(), 700);
     });
   }
-
-  /* ═════════════════════════════════════════════════════════
-     GAME OVER / VICTORY
-  ═════════════════════════════════════════════════════════ */
+  // Game status
   _gameOver() {
     this.pause();
     document.getElementById('finalScore').textContent = this.hud.score.toLocaleString();
@@ -242,28 +205,22 @@ class GameEngine {
     this._clearSave();
   }
 
-  /* ═════════════════════════════════════════════════════════
-     UI BINDINGS
-  ═════════════════════════════════════════════════════════ */
   _bindUI() {
     document.getElementById('btnAttack').addEventListener('click',   () => this._attack());
     document.getElementById('btnScramble').addEventListener('click', () => this._scramble());
     document.getElementById('btnHint').addEventListener('click',     () => this._useHint());
     document.getElementById('btnMenu').addEventListener('click',     () => this._openPause());
 
-    // Pause overlay
     document.getElementById('btnResumePause').addEventListener('click', () => this._closePause());
     document.getElementById('btnRestartPause').addEventListener('click', () => { this._closePause(); this.reset(); });
     document.getElementById('btnBackMenu').addEventListener('click', () => window.location.href = '../index.html');
 
-    // Game Over overlay
     document.getElementById('btnPlayAgain').addEventListener('click', () => {
       document.getElementById('gameOverOverlay').classList.add('hidden');
       this.reset();
     });
     document.getElementById('btnBackMenu2').addEventListener('click', () => window.location.href = '../index.html');
 
-    // Victory overlay
     document.getElementById('btnNextChapter').addEventListener('click', () => {
       document.getElementById('victoryOverlay').classList.add('hidden');
       this.resume();
@@ -271,17 +228,14 @@ class GameEngine {
     });
     document.getElementById('btnBackMenu3').addEventListener('click', () => window.location.href = '../index.html');
 
-    // Builder slot click → remove tile
     this.builder.onSlotClick((slot) => {
       if (this._paused) return;
       const r = this.builder.removeByTileIndex(slot.tileIndex);
       if (r) this.grid.deselectTile(r.tileIndex);
     });
 
-    // Item buttons (placeholder animations)
     document.querySelectorAll('.item-use-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        this._feedback('Item used!', 'points');
       });
     });
 
@@ -306,10 +260,6 @@ class GameEngine {
     this.resume();
     document.getElementById('pauseOverlay').classList.add('hidden');
   }
-
-  /* ═════════════════════════════════════════════════════════
-     AUXILIARY UI UPDATE
-  ═════════════════════════════════════════════════════════ */
   _refreshAuxUI() {
     document.getElementById('hintCount').textContent =
       `${this._hintsLeft} hint${this._hintsLeft !== 1 ? 's' : ''} left`;
@@ -319,24 +269,19 @@ class GameEngine {
     document.getElementById('btnScramble').disabled = this._scrambLeft <= 0;
   }
 
-  /* ═════════════════════════════════════════════════════════
-     FEEDBACK
-  ═════════════════════════════════════════════════════════ */
-  _feedback(text, type = 'correct', delay = 0) {
+ _feedback(text, type = 'correct', delay = 0) {
     setTimeout(() => {
       const el = document.createElement('div');
-      el.className  = `feedback-msg ${type}`;
+      el.className   = `feedback-msg ${type}`;
       el.textContent = text;
-      el.style.left = (15 + Math.random() * 55) + '%';
-      el.style.top  = (25 + Math.random() * 30) + '%';
+      el.style.left  = (20 + Math.random() * 45) + '%';
+      el.style.top   = (30 + Math.random() * 25) + '%';
       this._feedLayer.appendChild(el);
-      el.addEventListener('animationend', () => el.remove());
+      setTimeout(() => el.remove(), 3000);
     }, delay);
   }
 
-  /* ═════════════════════════════════════════════════════════
-     SAVE / LOAD
-  ═════════════════════════════════════════════════════════ */
+  // Save/Load Progress
   _saveProgress() {
     localStorage.setItem('baybayinSave', JSON.stringify({
       score: this.hud.score, lives: this.hud.lives,
@@ -344,7 +289,6 @@ class GameEngine {
     }));
   }
   _clearSave() { localStorage.removeItem('baybayinSave'); }
-
   _arrEqual(a, b) {
     return a.length === b.length && a.every((v, i) => v === b[i]);
   }
