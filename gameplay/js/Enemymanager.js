@@ -1,6 +1,5 @@
 class EnemyManager {
   constructor() {
-    this._enemies      = DATA.enemies;
     this._chapterIdx   = 0;
     this._enemyIdx     = 0;
     this._currentHP    = 0;
@@ -10,20 +9,26 @@ class EnemyManager {
     this._onPlayerHit  = null;
 
     this._nameEl    = document.getElementById('enemyName');
+    // legacy compat — hidden
     this._livesEl   = document.getElementById('enemyLives');
     this._enemyChar = document.getElementById('enemyChar');
-    this._descName  = document.getElementById('enemyDesc')?.querySelector('.enemy-desc__name');
-    this._descLore  = document.getElementById('enemyDesc')?.querySelector('.enemy-desc__lore');
-    this._descMoves = document.getElementById('enemyDesc')?.querySelector('.enemy-moves');
     this._chapterEl = document.getElementById('chapterTitle');
+
+    // HP bar elements
+    this._enemyFill = document.getElementById('enemyHpFill');
+    this._enemyText = document.getElementById('enemyHpText');
+    this._enemyHpName = document.getElementById('enemyHpName');
+
+    // Right-panel desc elements
+    this._descName  = document.getElementById('enemyDescName');
+    this._descLore  = document.getElementById('enemyDescLore');
+    this._descMoves = document.getElementById('enemyDescMoves');
   }
 
-  /* ── Callbacks ────────────────────────────────────────── */
   onDefeat(cb)     { this._onDefeat = cb; }
   onChapterEnd(cb) { this._onChapterEnd = cb; }
   onPlayerHit(cb)  { this._onPlayerHit = cb; }
 
-  /* ── Current enemy data ─────────────────────────────── */
   get current() {
     return this._getCurrentChapterEnemies()[this._enemyIdx] || null;
   }
@@ -34,7 +39,6 @@ class EnemyManager {
     return chapter.enemyIndices.map(i => DATA.enemies[i]);
   }
 
-  /* ── Load an enemy ──────────────────────────────────── */
   loadCurrent() {
     const enemy = this.current;
     if (!enemy) return;
@@ -42,21 +46,25 @@ class EnemyManager {
     this._maxHP     = enemy.maxHP;
     this._currentHP = enemy.maxHP;
 
-    // Update chapter banner
+    // Chapter
     if (this._chapterEl) {
       this._chapterEl.textContent = DATA.chapters[this._chapterIdx]?.title || '';
     }
 
-    // Update name
-    this._nameEl.textContent = enemy.name;
+    // name badge
+    if (this._nameEl) this._nameEl.textContent = enemy.name;
 
-    // Swap enemy sprite image
+    // HP bar name
+    if (this._enemyHpName) this._enemyHpName.textContent = enemy.name;
+
+    // Swap enemy
     const enemyImg = this._enemyChar.querySelector('.enemy-img');
     if (enemyImg && enemy.image) {
       enemyImg.src = enemy.image;
       enemyImg.alt = enemy.name;
     }
 
+    // Right-panel des
     if (this._descName)  this._descName.textContent  = enemy.name;
     if (this._descLore)  this._descLore.textContent  = enemy.lore;
     if (this._descMoves) {
@@ -73,20 +81,17 @@ class EnemyManager {
     this._currentHP = Math.max(0, this._currentHP - dmg);
     this._renderEnemyHP();
 
-    // Hit animation
     this._enemyChar.classList.remove('hit');
     void this._enemyChar.offsetWidth;
     this._enemyChar.classList.add('hit');
-    this._enemyChar.addEventListener('animationend', () =>
-      this._enemyChar.classList.remove('hit'), { once:true });
+    this._enemyChar.addEventListener('animationend',
+      () => this._enemyChar.classList.remove('hit'), { once: true });
 
     if (this._currentHP <= 0) {
       this._defeatEnemy();
     } else {
       if (Math.random() < 0.3) {
-        setTimeout(() => {
-          if (this._onPlayerHit) this._onPlayerHit();
-        }, 600);
+        setTimeout(() => { if (this._onPlayerHit) this._onPlayerHit(); }, 600);
       }
     }
   }
@@ -103,26 +108,22 @@ class EnemyManager {
     const chapterEnemies = this._getCurrentChapterEnemies();
     this._enemyIdx++;
     if (this._enemyIdx >= chapterEnemies.length) {
-      // Chapter complete
       this._enemyIdx = 0;
       this._chapterIdx++;
-      if (this._chapterIdx >= DATA.chapters.length) {
-        this._chapterIdx = 0;
-      }
+      if (this._chapterIdx >= DATA.chapters.length) this._chapterIdx = 0;
       if (this._onChapterEnd) this._onChapterEnd();
     } else {
       setTimeout(() => this.loadCurrent(), 400);
     }
   }
 
-  // Enemy hearts
   _renderEnemyHP() {
-    this._livesEl.innerHTML = '';
-    for (let i = 0; i < this._maxHP; i++) {
-      const h = document.createElement('span');
-      h.className   = 'heart' + (i >= this._currentHP ? ' lost' : '');
-      h.textContent = '❤';
-      this._livesEl.appendChild(h);
+    if (!this._enemyFill) return;
+    const pct = (this._currentHP / this._maxHP) * 100;
+    this._enemyFill.style.width = pct + '%';
+    this._enemyFill.classList.toggle('low', pct <= 40);
+    if (this._enemyText) {
+      this._enemyText.textContent = `${this._currentHP} / ${this._maxHP}`;
     }
   }
 

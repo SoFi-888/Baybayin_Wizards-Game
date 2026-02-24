@@ -16,7 +16,6 @@
       <span class="score-value" id="scoreDisplay">0</span>
     </div>
     <div class="level-badge" id="levelBadge">LEVEL <span id="levelNum">1</span></div>
-    <div class="player-lives" id="playerLives"></div>
   </div>
   <div class="top-bar__center">
     <div class="chapter-banner"><span id="chapterTitle">Chapter 1: The Ancient Scroll</span></div>
@@ -26,18 +25,38 @@
   </div>
   <div class="top-bar__right">
     <div class="enemy-name-badge" id="enemyName">Pebble Frog</div>
-    <div class="enemy-lives" id="enemyLives"></div>
   </div>
 </header>
 
+<div style="display:none">
+  <div id="playerLives"></div>
+  <div id="enemyLives"></div>
+</div>
+
 <section class="battle-stage">
   <div class="stage-bg"></div>
+
+  <!-- Hero HP bar -->
+  <div class="hp-overlay hp-overlay--hero">
+    <span class="hp-name">Tala</span>
+    <div class="hp-track"><div class="hp-fill hp-fill--hero" id="heroHpFill"></div></div>
+    <span class="hp-text" id="heroHpText">5 / 5</span>
+  </div>
+
+  <!-- Enemy HP bar -->
+  <div class="hp-overlay hp-overlay--enemy">
+    <span class="hp-name" id="enemyHpName">Pebble Frog</span>
+    <div class="hp-track"><div class="hp-fill hp-fill--enemy" id="enemyHpFill"></div></div>
+    <span class="hp-text" id="enemyHpText">3 / 3</span>
+  </div>
+
   <div class="hero-side">
     <div class="character hero" id="heroChar">
       <img class="hero-img" src="/img/Tala.png" alt="Tala" />
     </div>
     <div class="hero-label">Tala</div>
   </div>
+
   <div class="enemy-side">
     <div class="character enemy" id="enemyChar">
       <img class="enemy-img" src="/img/Pebble_frog.png" alt="Pebble Frog" />
@@ -46,19 +65,19 @@
 </section>
 
 <section class="game-floor">
+
+  <!-- Left panel -->
   <div class="curtain-panel curtain-panel--left">
     <div class="curtain-top"></div>
     <div class="panel-content">
       <p class="panel-title">Items</p>
       <div class="item-slots">
         <div class="item-slot" id="item0">
-          <div class="item-icon">🏹</div>
-          <div class="item-name">Bow of Zyx</div>
+          <div class="item-name">Health Potion</div>
           <button class="item-use-btn" data-item="0">Use</button>
         </div>
         <div class="item-slot" id="item1">
-          <div class="item-icon">🦊</div>
-          <div class="item-name">Golden Fleece</div>
+          <div class="item-name">Strength Potion</div>
           <button class="item-use-btn" data-item="1">Use</button>
         </div>
         <div class="item-slot item-slot--empty" id="item2">
@@ -75,6 +94,7 @@
     <div class="curtain-bottom"></div>
   </div>
 
+  <!-- Center -->
   <div class="center-panel">
     <div class="combo-display" id="comboDisplay">
       <span class="combo-text" id="comboText">x1</span>
@@ -89,15 +109,22 @@
     <div class="tile-grid" id="tileGrid"></div>
     <div class="action-row">
       <button class="action-btn action-btn--scramble" id="btnScramble">Scramble</button>
-      <button class="action-btn action-btn--attack"   id="btnAttack">Attack!</button>
-      <button class="action-btn action-btn--hint"     id="btnHint">Hint</button>
-      <button class="action-btn action-btn--menu"     id="btnMenu">Menu</button>
+      <button class="action-btn action-btn--attack" id="btnAttack">Attack!</button>
+      <button class="action-btn action-btn--hint" id="btnHint">Hint</button>
+      <button class="action-btn action-btn--menu" id="btnMenu">Menu</button>
     </div>
   </div>
 
+  <!-- Right panel -->
   <div class="curtain-panel curtain-panel--right">
     <div class="curtain-top"></div>
     <div class="panel-content">
+      <p class="panel-title">Enemy</p>
+      <div class="enemy-desc" id="enemyDesc">
+        <p class="enemy-desc__name" id="enemyDescName">Pebble Frog</p>
+        <p class="enemy-desc__lore" id="enemyDescLore">A stone-armored frog lurking in jungle paths.</p>
+      </div>
+      <div class="ol-divider" style="margin:4px 0"></div>
       <p class="panel-title">Word Info</p>
       <div class="word-info-box">
         <p class="wi-baybayin" id="wiBaybayin"></p>
@@ -112,6 +139,7 @@
     </div>
     <div class="curtain-bottom"></div>
   </div>
+
 </section>
 
 <div class="feedback-layer" id="feedbackLayer"></div>
@@ -141,7 +169,6 @@
 
 <div class="overlay hidden" id="victoryOverlay">
   <div class="overlay-box overlay-box--victory">
-    <div class="ol-baybayin gold">ᜈᜆᜒᜄ᜔ᜉᜓ!</div>
     <h2 class="overlay-title gold">Victory!</h2>
     <div class="ol-divider"></div>
     <p class="ol-stat">Score &nbsp;<strong id="victoryScore">0</strong></p>
