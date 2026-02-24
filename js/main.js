@@ -1,12 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const engine = new GameEngine();
+  engine.start();
 
-  const settingsModal = new SettingsModal();
-
-  new ResumeButton('btnResume');
-
-  new StartButton('btnStart');
-
-  document.getElementById('btnSettings').addEventListener('click', () => {
-    settingsModal.open();
-  });
+  const savedName = localStorage.getItem('playerName');
+  if (savedName) {
+    const label = document.querySelector('.score-label');
+    if (label) label.textContent = savedName.toUpperCase();
+  }
 });
