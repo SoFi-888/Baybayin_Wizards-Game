@@ -1,4 +1,3 @@
-/* TileGrid.js — 4×4 Baybayin tile board */
 class TileGrid {
   static COLS = 4;
   static ROWS = 4;
@@ -101,9 +100,7 @@ class TileGrid {
     });
   }
 
-  /* ── Scramble non-selected, non-used tiles then guarantee word chars ── */
   scramble(requiredChars) {
-    // Step 1: randomise every free tile
     this.tiles.forEach(t => {
       if (!t.used && !t.selected) {
         const d = this._rndData();
@@ -119,39 +116,32 @@ class TileGrid {
       }
     });
 
-    // Step 2: if caller passed the word, guarantee ALL its chars are present
     if (requiredChars && requiredChars.length) {
       this.ensureChars(requiredChars);
     }
   }
 
-  /* ── Guarantee every needed char exists in FREE (not used, not selected) tiles ── */
   ensureChars(chars) {
-    // Build a frequency map of what we still need
     const needed = {};
     chars.forEach(c => { needed[c] = (needed[c] || 0) + 1; });
 
-    // Subtract chars already covered by free tiles
     const free = this.tiles.filter(t => !t.used && !t.selected);
     free.forEach(t => {
       if (needed[t.char] > 0) needed[t.char]--;
     });
 
-    // For each still-needed char, overwrite a random free tile
     Object.entries(needed).forEach(([char, count]) => {
       for (let n = 0; n < count; n++) {
-        // Pick a free tile that doesn't already hold a needed char
         const candidates = free.filter(t => !needed[t.char] || needed[t.char] <= 0);
         const target = candidates.length
           ? candidates[Math.floor(Math.random() * candidates.length)]
-          : free[Math.floor(Math.random() * free.length)]; // fallback
+          : free[Math.floor(Math.random() * free.length)];
 
         if (!target) continue;
 
         const pool = DATA.tilePool.find(p => p.char === char);
         if (!pool) continue;
 
-        // Remove this tile from future candidates
         const idx = free.indexOf(target);
         if (idx !== -1) free.splice(idx, 1);
 

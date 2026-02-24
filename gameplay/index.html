@@ -38,23 +38,18 @@
 
   <!-- Hero HP bar -->
   <div class="hp-overlay hp-overlay--hero">
-    <span class="hp-name">Tala</span>
     <div class="hp-track"><div class="hp-fill hp-fill--hero" id="heroHpFill"></div></div>
-    <span class="hp-text" id="heroHpText">5 / 5</span>
   </div>
 
   <!-- Enemy HP bar -->
   <div class="hp-overlay hp-overlay--enemy">
-    <span class="hp-name" id="enemyHpName">Pebble Frog</span>
     <div class="hp-track"><div class="hp-fill hp-fill--enemy" id="enemyHpFill"></div></div>
-    <span class="hp-text" id="enemyHpText">3 / 3</span>
   </div>
 
   <div class="hero-side">
     <div class="character hero" id="heroChar">
       <img class="hero-img" src="/img/Tala.png" alt="Tala" />
     </div>
-    <div class="hero-label">Tala</div>
   </div>
 
   <div class="enemy-side">
@@ -72,17 +67,14 @@
     <div class="panel-content">
       <p class="panel-title">Items</p>
       <div class="item-slots">
-        <div class="item-slot" id="item0">
-          <div class="item-name">Health Potion</div>
-          <button class="item-use-btn" data-item="0">Use</button>
+        <div class="item-slot" id="item0" onclick="this.querySelector('.item-use-btn').click()">
+          <img class="item-img" src="/img/health_potion.png" alt="Health Potion" />
         </div>
-        <div class="item-slot" id="item1">
-          <div class="item-name">Strength Potion</div>
-          <button class="item-use-btn" data-item="1">Use</button>
+        <div class="item-slot" id="item1" onclick="this.querySelector('.item-use-btn').click()">
+          <img class="item-img" src="/img/strength_potion.png" alt="Strength Potion" />
         </div>
         <div class="item-slot item-slot--empty" id="item2">
-          <div class="item-icon">—</div>
-          <div class="item-name">empty slot</div>
+          <div class="item-name">empty</div>
         </div>
       </div>
       <div class="hint-panel">
