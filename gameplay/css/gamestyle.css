@@ -210,7 +210,7 @@ html, body {
 }
 .panel-title {
   font-family: 'Cinzel', serif;
-  font-size: 0.6rem; letter-spacing: 0.18em;
+  font-size: 1.0rem; letter-spacing: 0.18em;
   color: var(--gold); text-transform: uppercase;
   text-align: center;
 }
@@ -221,7 +221,7 @@ html, body {
   background: #00000044;
   border: 1px solid #5a2800;
   border-radius: 4px;
-  width: 146px; height: 146px;
+  width: 136px; height: 136px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
