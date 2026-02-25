@@ -12,7 +12,6 @@
 <header class="top-bar">
   <div class="top-bar__left">
     <div class="score-badge">
-      <span class="score-label">TALA</span>
       <span class="score-value" id="scoreDisplay">0</span>
     </div>
     <div class="level-badge" id="levelBadge">LEVEL <span id="levelNum">1</span></div>
@@ -177,5 +176,15 @@
 <script src="js/EnemyManager.js"></script>
 <script src="js/GameEngine.js"></script>
 <script src="js/main.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var name = localStorage.getItem('playerName');
+    if (name) {
+      var label = document.querySelector('.score-label');
+      if (label) label.textContent = name.toUpperCase();
+    }
+  });
+</script>
 </body>
 </html>

@@ -21,6 +21,7 @@ class StartButton {
     const saved = localStorage.getItem('playerName');
     if (saved) input.value = saved;
 
+    // Open modal
     overlay.classList.add('is-open');
     setTimeout(() => input.focus(), 100);
 

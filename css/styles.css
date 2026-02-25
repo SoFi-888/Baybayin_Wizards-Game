@@ -326,3 +326,55 @@ body {
   background: var(--gold-light);
 }
 
+/* ─── Name Entry Modal ───────────────────────────────────────── */
+.modal--name {
+  min-width: min(360px, 88vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 40px 44px;
+}
+
+.name-modal__sub {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 0.9rem;
+  color: var(--parchment-dim);
+  text-align: center;
+  margin-top: -8px;
+}
+
+.name-input {
+  width: 100%;
+  background: #0d0602;
+  border: 1px solid var(--gold-dark);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--gold-light);
+  letter-spacing: 0.08em;
+  text-align: center;
+  outline: none;
+}
+.name-input::placeholder {
+  color: #5a3a10;
+  font-style: italic;
+}
+.name-input:focus {
+  border-color: var(--gold);
+}
+
+.name-modal__error {
+  font-size: 0.75rem;
+  color: #ff6666;
+  text-align: center;
+  margin-top: -6px;
+}
+
+.name-modal__confirm {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.hidden { display: none !important; }
