@@ -60,7 +60,6 @@ class GameEngine {
     document.getElementById('promptBaybayin').textContent = this._current.baybayin.join('');
     document.getElementById('promptRoman').textContent    = this._current.roman;
     document.getElementById('promptMeaning').textContent  = `"${this._current.meaning}"`;
-
     document.getElementById('wiBaybayin').textContent = this._current.baybayin.join('');
     document.getElementById('wiRoman').textContent    = this._current.roman;
     document.getElementById('wiMeaning').textContent  = this._current.meaning;
@@ -70,7 +69,7 @@ class GameEngine {
     old.forEach(s => this.grid.deselectTile(s.tileIndex));
     this.grid.ensureChars(this._current.baybayin);
   }
-  // Tile is clicked function
+  // Tile clicked
   _onTileClick(data, index) {
     if (this._paused) return;
     this.grid.selectTile(index);
@@ -97,6 +96,7 @@ class GameEngine {
       this._current.points + (this._current.bonus ? 60 : 0)
     );
 
+    // Hero attack animation
     document.getElementById('heroChar').classList.remove('attack');
     void document.getElementById('heroChar').offsetWidth;
     document.getElementById('heroChar').classList.add('attack');
@@ -135,7 +135,7 @@ class GameEngine {
       document.getElementById('heroChar').classList.remove('hit'), { once:true });
 
     const alive = this.hud.loseLife();
-    this._feedback('Mali…', 'wrong');
+    this._feedback('Wrong yun...', 'wrong');
 
     if (!alive) {
       setTimeout(() => this._gameOver(), 700);
@@ -211,16 +211,22 @@ class GameEngine {
     document.getElementById('btnHint').addEventListener('click',     () => this._useHint());
     document.getElementById('btnMenu').addEventListener('click',     () => this._openPause());
 
+    // Pause overlay
     document.getElementById('btnResumePause').addEventListener('click', () => this._closePause());
     document.getElementById('btnRestartPause').addEventListener('click', () => { this._closePause(); this.reset(); });
     document.getElementById('btnBackMenu').addEventListener('click', () => window.location.href = '/template/index.html');
+    document.getElementById('btnClosePause').addEventListener('click',    () => this._closePause());
+    document.getElementById('btnCloseGameOver').addEventListener('click', () => document.getElementById('gameOverOverlay').classList.add('hidden'));
+    document.getElementById('btnCloseVictory').addEventListener('click',  () => document.getElementById('victoryOverlay').classList.add('hidden'));
 
+    // Game Over overlay
     document.getElementById('btnPlayAgain').addEventListener('click', () => {
       document.getElementById('gameOverOverlay').classList.add('hidden');
       this.reset();
     });
     document.getElementById('btnBackMenu2').addEventListener('click', () => window.location.href = '/template/index.html');
 
+    // Victory overlay
     document.getElementById('btnNextChapter').addEventListener('click', () => {
       document.getElementById('victoryOverlay').classList.add('hidden');
       this.resume();
@@ -260,12 +266,13 @@ class GameEngine {
     this.resume();
     document.getElementById('pauseOverlay').classList.add('hidden');
   }
+
   _refreshAuxUI() {
     document.getElementById('hintCount').textContent =
       `${this._hintsLeft} hint${this._hintsLeft !== 1 ? 's' : ''} left`;
     document.getElementById('btnHint').disabled    = this._hintsLeft <= 0;
     document.getElementById('btnScramble').textContent =
-      `⟳ Scramble (${this._scrambLeft})`;
+      `Scramble (${this._scrambLeft})`;
     document.getElementById('btnScramble').disabled = this._scrambLeft <= 0;
   }
 
@@ -274,8 +281,16 @@ class GameEngine {
       const el = document.createElement('div');
       el.className   = `feedback-msg ${type}`;
       el.textContent = text;
-      el.style.left  = (20 + Math.random() * 45) + '%';
-      el.style.top   = (30 + Math.random() * 25) + '%';
+
+      if (type === 'correct' || type === 'bonus' || type === 'points') {
+        el.style.left = (5 + Math.random() * 15) + '%';
+      } else if (type === 'wrong') {
+        el.style.left = (72 + Math.random() * 15) + '%';
+      } else {
+        el.style.left = (38 + Math.random() * 10) + '%';
+      }
+      el.style.top = (8 + Math.random() * 12) + '%';
+
       this._feedLayer.appendChild(el);
       setTimeout(() => el.remove(), 3000);
     }, delay);
@@ -289,6 +304,10 @@ class GameEngine {
     }));
   }
   _clearSave() { localStorage.removeItem('baybayinSave'); }
+  _arrEqual(a, b) {
+    return a.length === b.length && a.every((v, i) => v === b[i]);
+  }
+
   _arrEqual(a, b) {
     return a.length === b.length && a.every((v, i) => v === b[i]);
   }

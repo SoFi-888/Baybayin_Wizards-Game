@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const engine = new GameEngine();
-  engine.start();
 
-  requestAnimationFrame(() => {
-    const savedName = localStorage.getItem('playerName');
-    const label = document.querySelector('.score-label');
-    if (label) label.textContent = savedName ? savedName.toUpperCase() : 'TALA';
+  const settingsModal = new SettingsModal();
+
+  new ResumeButton('btnResume');
+
+  document.getElementById('btnSettings').addEventListener('click', () => {
+    settingsModal.open();
   });
+
 });

@@ -35,7 +35,7 @@ class StartButton {
       error.classList.add('hidden');
       localStorage.setItem('playerName', name);
       overlay.classList.remove('is-open');
-      window.location.href = 'gameplay/index.html';
+      window.location.href = '/gameplay/index.html';
     };
 
     const onKeydown = (e) => {

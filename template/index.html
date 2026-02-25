@@ -42,15 +42,15 @@
   <!-- Name Entry -->
   <div class="modal-overlay" id="nameModal" role="dialog" aria-modal="true" aria-labelledby="nameModalTitle">
     <div class="modal modal--name">
+      <button class="modal-close" id="nameModalClose" aria-label="Close">✕</button>
       <h2 class="modal-title" id="nameModalTitle">Enter Your Name</h2>
       <input
         type="text"
         class="name-input"
         id="playerNameInput"
         maxlength="16"
-        placeholder="Wizard name…"
+        placeholder="Enter name…"
         autocomplete="off"
-        spellcheck="false"
       />
       <p class="name-modal__error hidden" id="nameError">Please enter a name to continue.</p>
       <button class="btn btn--start name-modal__confirm" id="btnConfirmName" type="button">
@@ -59,7 +59,7 @@
     </div>
   </div>
 
-  <!-- ── Settings Modal ──────────────────────────────────────── -->
+  <!-- Settings Modal -->
   <div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <button class="modal-close" id="modalClose" aria-label="Close settings">✕</button>
@@ -123,6 +123,10 @@
       var error   = document.getElementById('nameError');
 
       btn.removeAttribute('onclick');
+
+      document.getElementById('nameModalClose').addEventListener('click', function () {
+        overlay.classList.remove('is-open');
+      });
 
       btn.addEventListener('click', function () {
         var saved = localStorage.getItem('playerName');

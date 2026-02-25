@@ -12,6 +12,7 @@
 <header class="top-bar">
   <div class="top-bar__left">
     <div class="score-badge">
+      <span class="score-label">TALA</span>
       <span class="score-value" id="scoreDisplay">0</span>
     </div>
     <div class="level-badge" id="levelBadge">LEVEL <span id="levelNum">1</span></div>
@@ -73,7 +74,6 @@
           <img class="item-img" src="/img/strength_potion.png" alt="Strength Potion" />
         </div>
         <div class="item-slot item-slot--empty" id="item2">
-          <div class="item-name">empty</div>
         </div>
       </div>
       <div class="hint-panel">
@@ -137,6 +137,7 @@
 
 <div class="overlay hidden" id="pauseOverlay">
   <div class="overlay-box">
+    <button class="ol-close" id="btnClosePause" aria-label="Close">✕</button>
     <h2 class="overlay-title">— Paused —</h2>
     <button class="ol-btn ol-btn--primary" id="btnResumePause">Resume</button>
     <button class="ol-btn"                 id="btnRestartPause">Restart</button>
@@ -146,6 +147,7 @@
 
 <div class="overlay hidden" id="gameOverOverlay">
   <div class="overlay-box">
+    <button class="ol-close" id="btnCloseGameOver" aria-label="Close">✕</button>
     <div class="ol-baybayin">ᜆᜉᜓᜐ᜔</div>
     <h2 class="overlay-title">Game Over</h2>
     <div class="ol-divider"></div>
@@ -160,6 +162,7 @@
 
 <div class="overlay hidden" id="victoryOverlay">
   <div class="overlay-box overlay-box--victory">
+    <button class="ol-close" id="btnCloseVictory" aria-label="Close">✕</button>
     <h2 class="overlay-title gold">Victory!</h2>
     <div class="ol-divider"></div>
     <p class="ol-stat">Score &nbsp;<strong id="victoryScore">0</strong></p>
@@ -180,10 +183,10 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var name = localStorage.getItem('playerName');
-    if (name) {
-      var label = document.querySelector('.score-label');
-      if (label) label.textContent = name.toUpperCase();
-    }
+    var byId    = document.getElementById('playerName');
+    var byClass = document.querySelector('.score-label');
+    if (byId)    byId.textContent    = name ? name.toUpperCase() : 'PLAYER';
+    if (byClass) byClass.textContent = name ? name.toUpperCase() : 'TALA';
   });
 </script>
 </body>

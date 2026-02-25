@@ -9,7 +9,6 @@ class EnemyManager {
     this._onPlayerHit  = null;
 
     this._nameEl    = document.getElementById('enemyName');
-    // legacy compat — hidden
     this._livesEl   = document.getElementById('enemyLives');
     this._enemyChar = document.getElementById('enemyChar');
     this._chapterEl = document.getElementById('chapterTitle');
@@ -19,7 +18,7 @@ class EnemyManager {
     this._enemyText = document.getElementById('enemyHpText');
     this._enemyHpName = document.getElementById('enemyHpName');
 
-    // Right-panel desc elements
+    // Right-panel desc
     this._descName  = document.getElementById('enemyDescName');
     this._descLore  = document.getElementById('enemyDescLore');
     this._descMoves = document.getElementById('enemyDescMoves');
