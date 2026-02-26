@@ -1,6 +1,6 @@
 const DATA = {
 
-  /* ── Baybayin word list ────────────────────────────────── */
+  /* Baybayin word list */
   words: [
     { baybayin:['ᜊ','ᜑ','ᜀ','ᜌ'],           roman:'bahay',  meaning:'house',         points:100 },
     { baybayin:['ᜀ','ᜇ','ᜀ','ᜏ'],           roman:'araw',   meaning:'sun / day',      points:100 },

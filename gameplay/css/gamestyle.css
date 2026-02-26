@@ -79,8 +79,18 @@ html, body {
   white-space: nowrap;
 }
 
-.word-display-bar { display: flex; justify-content: center; align-items: center; flex-shrink: 0; max-width: 100%; overflow: hidden; }
-.word-tiles-row { display: flex; gap: 2px; align-items: center; flex-wrap: nowrap; justify-content: center; overflow: hidden; }
+.word-display-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #110800;
+  border-bottom: 2px solid var(--gold-dark);
+  padding: 4px 0;
+  flex-shrink: 0;
+  width: 100%;
+  min-height: 36px;
+}
+.word-tiles-row { display: flex; gap: 4px; align-items: center; flex-wrap: nowrap; justify-content: center; }
 .wt-tile {
   width: 26px; height: 26px;
   background: var(--tile-bg);
@@ -89,7 +99,7 @@ html, body {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   font-size: 0.95rem; color: var(--ink); font-weight: 700; cursor: pointer;
 }
-.wt-tile .wt-roman { font-size: 0.80rem; color: #7a5010; line-height: 1; }
+.wt-tile .wt-roman { font-size: 0.36rem; color: #7a5010; line-height: 1; }
 .wt-tile.correct { background: #a8e090; border-color: #40a030; }
 .wt-tile.wrong   { background: #f0b0b0; border-color: #c03030; }
 
@@ -364,7 +374,9 @@ html, body {
   font-size: 0.55rem; font-weight: 600;
   color: #5a3808; letter-spacing: 0.04em;
   pointer-events: none; margin-top: 1px;
+  display: none;
 }
+.tile-grid.show-roman .tile-roman { display: block; }
 
 /* ── Action Row ────────────────────────────────────────── */
 .action-row {

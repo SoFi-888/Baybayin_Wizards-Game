@@ -7,7 +7,7 @@ class TileGrid {
     this.container   = document.getElementById(containerId);
     this.onTileClick = onTileClick;
     this.tiles       = [];
-    this.showRoman   = true;
+    this.showRoman   = false;
     this._build();
   }
 
@@ -99,7 +99,6 @@ class TileGrid {
       }, delay);
     });
   }
-
   scramble(requiredChars) {
     this.tiles.forEach(t => {
       if (!t.used && !t.selected) {
@@ -115,21 +114,17 @@ class TileGrid {
           () => t.el.classList.remove('tile--spawning'), { once: true });
       }
     });
-
     if (requiredChars && requiredChars.length) {
       this.ensureChars(requiredChars);
     }
   }
-
   ensureChars(chars) {
     const needed = {};
     chars.forEach(c => { needed[c] = (needed[c] || 0) + 1; });
-
     const free = this.tiles.filter(t => !t.used && !t.selected);
     free.forEach(t => {
       if (needed[t.char] > 0) needed[t.char]--;
     });
-
     Object.entries(needed).forEach(([char, count]) => {
       for (let n = 0; n < count; n++) {
         const candidates = free.filter(t => !needed[t.char] || needed[t.char] <= 0);
@@ -149,7 +144,8 @@ class TileGrid {
         target.roman = pool.roman;
         target.el.querySelector('.tile-char').textContent  = pool.char;
         target.el.querySelector('.tile-roman').textContent = pool.roman;
-        target.el.style.display = this.showRoman ? '' : 'none';
+        const rs = target.el.querySelector('.tile-roman');
+        if (rs) rs.style.display = this.showRoman ? '' : 'none';
       }
     });
   }
@@ -177,5 +173,5 @@ class TileGrid {
     });
   }
 
-  reset() { this._build(); }
+  reset() { this.showRoman = false; this._build(); }
 }

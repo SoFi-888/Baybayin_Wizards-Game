@@ -21,6 +21,8 @@ class GameEngine {
     this._setupEnemyCallbacks();
     this._bindUI();
   }
+
+  /* PUBLIC */
   start() {
     this._paused     = false;
     this._hintsLeft  = GameEngine.HINTS_MAX;
@@ -45,6 +47,7 @@ class GameEngine {
 
   get wordsFound() { return this._wordsFound; }
 
+  /* WORD QUEUE */
   _startQueue() {
     this._wordQueue = [...DATA.words].sort(() => Math.random() - 0.5);
     this._loadNextWord();
@@ -56,7 +59,6 @@ class GameEngine {
     }
     this._current = this._wordQueue.shift();
 
-    // Update prompts
     document.getElementById('promptBaybayin').textContent = this._current.baybayin.join('');
     document.getElementById('promptRoman').textContent    = this._current.roman;
     document.getElementById('promptMeaning').textContent  = `"${this._current.meaning}"`;
@@ -67,15 +69,18 @@ class GameEngine {
 
     const old = this.builder.clear();
     old.forEach(s => this.grid.deselectTile(s.tileIndex));
+
     this.grid.ensureChars(this._current.baybayin);
   }
-  // Tile clicked
+
+  /* TILE CLICK */
   _onTileClick(data, index) {
     if (this._paused) return;
     this.grid.selectTile(index);
     this.builder.addChar(data.char, data.roman, index);
   }
-  // Attack function
+
+  /* ATTACK / SUBMIT */
   _attack() {
     if (this._paused || !this._current || this.builder.length === 0) return;
 
@@ -96,14 +101,14 @@ class GameEngine {
       this._current.points + (this._current.bonus ? 60 : 0)
     );
 
-    // Hero attack animation
     document.getElementById('heroChar').classList.remove('attack');
     void document.getElementById('heroChar').offsetWidth;
     document.getElementById('heroChar').classList.add('attack');
     document.getElementById('heroChar').addEventListener('animationend', () =>
-      document.getElementById('heroChar').classList.remove('attack'), { once:true });
+    document.getElementById('heroChar').classList.remove('attack'), { once:true });
+    document.getElementById('tileGrid').classList.remove('show-roman');
+    this.grid.setRomanVisible(false);
 
-    // Damage enemy
     setTimeout(() => this.enemy.damageEnemy(1), 250);
 
     this.builder.flashCorrect(() => {
@@ -126,7 +131,6 @@ class GameEngine {
     this.builder.flashWrong(() => {});
     this.hud.resetCombo();
 
-    // Enemy hits player
     this.enemy.triggerEnemyAttack();
     document.getElementById('heroChar').classList.remove('hit');
     void document.getElementById('heroChar').offsetWidth;
@@ -135,7 +139,7 @@ class GameEngine {
       document.getElementById('heroChar').classList.remove('hit'), { once:true });
 
     const alive = this.hud.loseLife();
-    this._feedback('Wrong yun...', 'wrong');
+    this._feedback('Mali…', 'wrong');
 
     if (!alive) {
       setTimeout(() => this._gameOver(), 700);
@@ -146,7 +150,8 @@ class GameEngine {
       }, 500);
     }
   }
-  // Scramble words
+
+  /* SCRAMBLE */
   _scramble() {
     if (this._paused || this._scrambLeft <= 0) return;
     this._scrambLeft--;
@@ -156,8 +161,8 @@ class GameEngine {
     this._refreshAuxUI();
     this._feedback('Shuffled!', 'points');
   }
-  
-  // Hint function
+
+  /* HINT */
   _useHint() {
     if (this._paused || this._hintsLeft <= 0) return;
     this._hintsLeft--;
@@ -167,11 +172,14 @@ class GameEngine {
     romanEl.textContent = this._current.roman;
     romanEl.classList.remove('hidden');
     setTimeout(() => romanEl.classList.add('hidden'), 3000);
-
     const nextChar = this._current.baybayin[this.builder.length];
     if (nextChar) this.grid.highlightChar(nextChar);
+
+    document.getElementById('tileGrid').classList.add('show-roman');
+    this.grid.setRomanVisible(true);
   }
 
+  /* ENEMY CALLBACKS */
   _setupEnemyCallbacks() {
     this.enemy.onDefeat((defeated) => {
       this._feedback(`${defeated.name} defeated!`, 'combo');
@@ -195,7 +203,8 @@ class GameEngine {
       if (!alive) setTimeout(() => this._gameOver(), 700);
     });
   }
-  // Game status
+
+  /* GAME OVER / VICTORY */
   _gameOver() {
     this.pause();
     document.getElementById('finalScore').textContent = this.hud.score.toLocaleString();
@@ -205,28 +214,30 @@ class GameEngine {
     this._clearSave();
   }
 
+  /* UI BINDINGS */
   _bindUI() {
     document.getElementById('btnAttack').addEventListener('click',   () => this._attack());
     document.getElementById('btnScramble').addEventListener('click', () => this._scramble());
     document.getElementById('btnHint').addEventListener('click',     () => this._useHint());
     document.getElementById('btnMenu').addEventListener('click',     () => this._openPause());
 
-    // Pause overlay
+    // Pause
     document.getElementById('btnResumePause').addEventListener('click', () => this._closePause());
     document.getElementById('btnRestartPause').addEventListener('click', () => { this._closePause(); this.reset(); });
     document.getElementById('btnBackMenu').addEventListener('click', () => window.location.href = '/template/index.html');
+
     document.getElementById('btnClosePause').addEventListener('click',    () => this._closePause());
     document.getElementById('btnCloseGameOver').addEventListener('click', () => document.getElementById('gameOverOverlay').classList.add('hidden'));
     document.getElementById('btnCloseVictory').addEventListener('click',  () => document.getElementById('victoryOverlay').classList.add('hidden'));
 
-    // Game Over overlay
+    // Game Over
     document.getElementById('btnPlayAgain').addEventListener('click', () => {
       document.getElementById('gameOverOverlay').classList.add('hidden');
       this.reset();
     });
     document.getElementById('btnBackMenu2').addEventListener('click', () => window.location.href = '/template/index.html');
 
-    // Victory overlay
+    // Victory
     document.getElementById('btnNextChapter').addEventListener('click', () => {
       document.getElementById('victoryOverlay').classList.add('hidden');
       this.resume();
@@ -239,9 +250,9 @@ class GameEngine {
       const r = this.builder.removeByTileIndex(slot.tileIndex);
       if (r) this.grid.deselectTile(r.tileIndex);
     });
-
     document.querySelectorAll('.item-use-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        this._feedback('Item used!', 'points');
       });
     });
 
@@ -267,16 +278,18 @@ class GameEngine {
     document.getElementById('pauseOverlay').classList.add('hidden');
   }
 
+  /* AUXILIARY UI UPDATE */
   _refreshAuxUI() {
     document.getElementById('hintCount').textContent =
       `${this._hintsLeft} hint${this._hintsLeft !== 1 ? 's' : ''} left`;
     document.getElementById('btnHint').disabled    = this._hintsLeft <= 0;
     document.getElementById('btnScramble').textContent =
-      `Scramble (${this._scrambLeft})`;
+      `⟳ Scramble (${this._scrambLeft})`;
     document.getElementById('btnScramble').disabled = this._scrambLeft <= 0;
   }
 
- _feedback(text, type = 'correct', delay = 0) {
+  /* FEEDBACK */
+  _feedback(text, type = 'correct', delay = 0) {
     setTimeout(() => {
       const el = document.createElement('div');
       el.className   = `feedback-msg ${type}`;
@@ -296,7 +309,7 @@ class GameEngine {
     }, delay);
   }
 
-  // Save/Load Progress
+  /* SAVE / LOAD */
   _saveProgress() {
     localStorage.setItem('baybayinSave', JSON.stringify({
       score: this.hud.score, lives: this.hud.lives,
@@ -304,10 +317,8 @@ class GameEngine {
     }));
   }
   _clearSave() { localStorage.removeItem('baybayinSave'); }
-  _arrEqual(a, b) {
-    return a.length === b.length && a.every((v, i) => v === b[i]);
-  }
 
+  /* HELPERS */
   _arrEqual(a, b) {
     return a.length === b.length && a.every((v, i) => v === b[i]);
   }
