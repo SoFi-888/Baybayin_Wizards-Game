@@ -230,6 +230,11 @@ class GameEngine {
     document.getElementById('btnCloseGameOver').addEventListener('click', () => document.getElementById('gameOverOverlay').classList.add('hidden'));
     document.getElementById('btnCloseVictory').addEventListener('click',  () => document.getElementById('victoryOverlay').classList.add('hidden'));
 
+    document.getElementById('btnOpenSettings').addEventListener('click', () => {
+      document.getElementById('pauseOverlay').classList.add('hidden');
+      document.dispatchEvent(new CustomEvent('openGameSettings'));
+    });
+
     // Game Over
     document.getElementById('btnPlayAgain').addEventListener('click', () => {
       document.getElementById('gameOverOverlay').classList.add('hidden');

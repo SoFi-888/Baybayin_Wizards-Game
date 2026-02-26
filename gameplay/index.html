@@ -19,13 +19,15 @@
   </div>
   <div class="top-bar__center">
     <div class="chapter-banner"><span id="chapterTitle">Chapter 1: The Ancient Scroll</span></div>
-      <div class="word-tiles-row" id="wordTilesRow"></div>
-    </div>
   </div>
   <div class="top-bar__right">
     <div class="enemy-name-badge" id="enemyName">Pebble Frog</div>
   </div>
 </header>
+
+<div class="word-display-bar">
+  <div class="word-tiles-row" id="wordTilesRow"></div>
+</div>
 
 <div style="display:none">
   <div id="playerLives"></div>
@@ -73,6 +75,7 @@
           <img class="item-img" src="/img/strength_potion.png" alt="Strength Potion" />
         </div>
         <div class="item-slot item-slot--empty" id="item2">
+          <div class="item-name">empty</div>
         </div>
       </div>
       <div class="hint-panel">
@@ -112,7 +115,7 @@
       <p class="panel-title">Enemy</p>
       <div class="enemy-desc" id="enemyDesc">
         <p class="enemy-desc__name" id="enemyDescName">Pebble Frog</p>
-        <p class="enemy-desc__lore" id="enemyDescLore">A stone-armored frog lurking in jungle paths.</p>
+        <p class="enemy-desc__lore" id="enemyDescLore">A pebble frog hides along dirt roads, covering itself with loose stones to blend seamlessly into the ground and stay safe from predators.</p>
       </div>
       <div class="ol-divider" style="margin:4px 0"></div>
       <p class="panel-title">Word Info</p>
@@ -140,6 +143,7 @@
     <h2 class="overlay-title">— Paused —</h2>
     <button class="ol-btn ol-btn--primary" id="btnResumePause">Resume</button>
     <button class="ol-btn"                 id="btnRestartPause">Restart</button>
+    <button class="ol-btn"                 id="btnOpenSettings">Settings</button>
     <button class="ol-btn"                 id="btnBackMenu">Main Menu</button>
   </div>
 </div>
@@ -147,7 +151,6 @@
 <div class="overlay hidden" id="gameOverOverlay">
   <div class="overlay-box">
     <button class="ol-close" id="btnCloseGameOver" aria-label="Close">✕</button>
-    <div class="ol-baybayin">ᜆᜉᜓᜐ᜔</div>
     <h2 class="overlay-title">Game Over</h2>
     <div class="ol-divider"></div>
     <p class="ol-stat">Final Score &nbsp;<strong id="finalScore">0</strong></p>
@@ -171,6 +174,48 @@
   </div>
 </div>
 
+<!-- Settings Modal -->
+<div class="gp-settings-overlay hidden" id="gpSettingsModal" role="dialog" aria-modal="true">
+  <div class="gp-settings-box">
+    <button class="ol-close" id="gpModalClose" aria-label="Close settings">✕</button>
+    <h2 class="overlay-title" style="margin-bottom:12px">Settings</h2>
+
+    <div class="gp-setting-row">
+      <span class="gp-setting-label">Sound Effects</span>
+      <label class="gp-toggle" aria-label="Toggle sound effects">
+        <input type="checkbox" id="toggleSfx" checked />
+        <div class="gp-toggle-track"></div>
+        <div class="gp-toggle-thumb"></div>
+      </label>
+    </div>
+
+    <div class="gp-setting-row">
+      <span class="gp-setting-label">Music</span>
+      <label class="gp-toggle" aria-label="Toggle music">
+        <input type="checkbox" id="toggleMusic" checked />
+        <div class="gp-toggle-track"></div>
+        <div class="gp-toggle-thumb"></div>
+      </label>
+    </div>
+
+    <div class="gp-setting-row">
+      <span class="gp-setting-label">Volume</span>
+      <input type="range" class="volume-slider" id="volumeSlider"
+             min="0" max="100" value="70" aria-label="Volume level" />
+    </div>
+
+    <div class="gp-setting-row">
+      <span class="gp-setting-label">Fullscreen</span>
+      <label class="gp-toggle" aria-label="Toggle fullscreen">
+        <input type="checkbox" id="toggleFullscreen" />
+        <div class="gp-toggle-track"></div>
+        <div class="gp-toggle-thumb"></div>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script src="/js/AudioManager.js"></script>
 <script src="js/data.js"></script>
 <script src="js/HUD.js"></script>
 <script src="js/TileGrid.js"></script>

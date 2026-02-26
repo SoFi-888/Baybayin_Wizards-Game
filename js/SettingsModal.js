@@ -4,11 +4,14 @@ class SettingsModal {
     this.closeBtn = document.getElementById('modalClose');
 
     this._bindEvents();
+    audioManager.syncUI();
+    audioManager.bindSettingsControls();
   }
 
   /** Open Settings */
   open() {
     this.overlay.classList.add('is-open');
+    audioManager.syncUI();
   }
 
   close() {
@@ -20,19 +23,13 @@ class SettingsModal {
   }
 
   _bindEvents() {
-    // Close button
     this.closeBtn.addEventListener('click', () => this.close());
-
     this.overlay.addEventListener('click', (e) => {
       if (e.target === this.overlay) this.close();
     });
-
-    // Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.isOpen()) this.close();
     });
-
-    // Fullscreen toggle
     document.getElementById('toggleFullscreen').addEventListener('change', function () {
       if (this.checked) {
         document.documentElement.requestFullscreen?.();
@@ -40,7 +37,6 @@ class SettingsModal {
         document.exitFullscreen?.();
       }
     });
-    // Volume Slider
     const slider = document.getElementById('volumeSlider');
     slider.addEventListener('input', function () {
       this.style.background =
