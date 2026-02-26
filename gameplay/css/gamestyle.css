@@ -27,7 +27,7 @@ html, body {
   flex-direction: column;
 }
 
-/* TOP BAR */
+/* Top */
 .top-bar {
   display: flex;
   align-items: center;
@@ -89,6 +89,8 @@ html, body {
   flex-shrink: 0;
   width: 100%;
   min-height: 36px;
+  order: 0;
+  align-self: stretch;
 }
 .word-tiles-row { display: flex; gap: 4px; align-items: center; flex-wrap: nowrap; justify-content: center; }
 .wt-tile {
@@ -98,6 +100,18 @@ html, body {
   border-radius: 3px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   font-size: 0.95rem; color: var(--ink); font-weight: 700; cursor: pointer;
+}
+.wt-tile .wt-roman { font-size: 0.36rem; color: #7a5010; line-height: 1; }
+.wt-tile.correct { background: #a8e090; border-color: #40a030; }
+.wt-tile.wrong   { background: #f0b0b0; border-color: #c03030; }
+
+.enemy-name-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem; letter-spacing: 0.08em;
+  color: #ff9999;
+  background: #500000;
+  border: 1px solid #660000;
+  border-radius: 3px; padding: 2px 8px;
 }
 .wt-tile .wt-roman { font-size: 0.36rem; color: #7a5010; line-height: 1; }
 .wt-tile.correct { background: #a8e090; border-color: #40a030; }
@@ -192,7 +206,7 @@ html, body {
   width: 90px; height: auto;
   transform-origin: bottom center;}
 
-/* GAME FLOOR */
+/* Game Floor */
 .game-floor {
   display: flex; flex: 1; min-height: 0;
   overflow: hidden;
@@ -289,7 +303,7 @@ html, body {
 .streak-label { font-size: 0.54rem; letter-spacing: .1em; color: #9a7040; text-transform: uppercase; }
 .streak-val   { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold-light); }
 
-/* ─ Center Panel ─ */
+/* Center Panel */
 .center-panel {
   flex: 1; display: flex; flex-direction: column; align-items: center;
   padding: 6px 8px;
@@ -323,7 +337,7 @@ html, body {
 .word-prompt__roman    { font-style: italic; font-size: 0.72rem; color: var(--parch-dim); }
 .word-prompt__meaning  { font-size: 1.2rem; color: #9a7840; font-style: italic; }
 
-/* ── Tile Grid ─────────────────────────────────────────── */
+/* Tile Grid */
 .tile-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -378,7 +392,7 @@ html, body {
 }
 .tile-grid.show-roman .tile-roman { display: block; }
 
-/* ── Action Row ────────────────────────────────────────── */
+/* Action Row */
 .action-row {
   display: flex; gap: 5px;
   width: 100%; max-width: 250px; flex-shrink: 0;
@@ -400,7 +414,7 @@ html, body {
 .action-btn--hint     { background: #1a3a7a; color: #a0c8ff; box-shadow: 0 3px 0 #0a1a4a; }
 .action-btn--menu     { background: #2a1505; color: var(--parch-dim); border: 1px solid var(--gold-dark); box-shadow: 0 3px 0 #0a0502; }
 
-/* ── Feedback ──────────────────────────────────────────── */
+/* Feedback */
 .feedback-layer { position: fixed; inset: 0; pointer-events: none; z-index: 80; }
 .feedback-msg {
   position: absolute;
@@ -413,7 +427,7 @@ html, body {
 .feedback-msg.combo   { color: #ff9933; font-size: 1.7rem; }
 .feedback-msg.points  { color: var(--gold-light); font-size: 1rem; }
 
-/* ── Overlays ──────────────────────────────────────────── */
+/* Overlays */
 .overlay {
   position: fixed; inset: 0; z-index: 200;
   background: #000000cc;
