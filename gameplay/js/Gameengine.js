@@ -58,11 +58,14 @@ class GameEngine {
       this._wordQueue = [...DATA.words].sort(() => Math.random() - 0.5);
     }
     this._current = this._wordQueue.shift();
-
-    document.getElementById('promptBaybayin').textContent = this._current.baybayin.join('');
+    const promptRomanMain = document.getElementById('promptRomanMain');
+    if (promptRomanMain) promptRomanMain.textContent = this._current.roman;
     document.getElementById('promptRoman').textContent    = this._current.roman;
     document.getElementById('promptMeaning').textContent  = `"${this._current.meaning}"`;
-    document.getElementById('wiBaybayin').textContent = this._current.baybayin.join('');
+
+
+    const wiBaybayin = document.getElementById('wiBaybayin');
+    if (wiBaybayin) wiBaybayin.textContent = '';
     document.getElementById('wiRoman').textContent    = this._current.roman;
     document.getElementById('wiMeaning').textContent  = this._current.meaning;
     document.getElementById('wiPoints').textContent   = `+${this._current.points} pts`;
@@ -139,7 +142,7 @@ class GameEngine {
       document.getElementById('heroChar').classList.remove('hit'), { once:true });
 
     const alive = this.hud.loseLife();
-    this._feedback('Mali…', 'wrong');
+    this._feedback('Mali yarn…', 'wrong');
 
     if (!alive) {
       setTimeout(() => this._gameOver(), 700);

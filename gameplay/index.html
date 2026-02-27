@@ -95,9 +95,9 @@
     </div>
     <div class="word-prompt">
       <span class="word-prompt__label">Spell:</span>
-      <span class="word-prompt__baybayin" id="promptBaybayin"></span>
+      <span class="word-prompt__roman--main" id="promptRomanMain"></span>
       <span class="word-prompt__roman hidden" id="promptRoman"></span>
-      <span class="word-prompt__meaning" id="promptMeaning"></span>
+      <span class="word-prompt__meaning hidden" id="promptMeaning"></span>
     </div>
     <div class="tile-grid" id="tileGrid"></div>
     <div class="action-row">
@@ -120,7 +120,6 @@
       <div class="ol-divider" style="margin:4px 0"></div>
       <p class="panel-title">Word Info</p>
       <div class="word-info-box">
-        <p class="wi-baybayin" id="wiBaybayin"></p>
         <p class="wi-roman"    id="wiRoman"></p>
         <p class="wi-meaning"  id="wiMeaning"></p>
         <p class="wi-points"   id="wiPoints"></p>
@@ -215,7 +214,7 @@
   </div>
 </div>
 
-<script src="/js/AudioManager.js"></script>
+<script src="js/AudioManager.js"></script>
 <script src="js/data.js"></script>
 <script src="js/HUD.js"></script>
 <script src="js/TileGrid.js"></script>

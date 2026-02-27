@@ -9,11 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (byId)    byId.textContent    = savedName ? savedName.toUpperCase() : 'PLAYER';
     if (byClass) byClass.textContent = savedName ? savedName.toUpperCase() : 'TALA';
   });
-
+  audioManager.resumeBGM();
   document.addEventListener('click', () => audioManager.playBGM(), { once: true });
   document.getElementById('tileGrid').addEventListener('click', () => audioManager.playSFX());
   document.querySelectorAll('.action-btn, .ol-btn').forEach(btn => {
     btn.addEventListener('click', () => audioManager.playSFX());
+  });
   });
 
   const gpOverlay = document.getElementById('gpSettingsModal');
@@ -50,4 +51,3 @@ document.addEventListener('DOMContentLoaded', () => {
       engine.resume();
     }
   });
-});

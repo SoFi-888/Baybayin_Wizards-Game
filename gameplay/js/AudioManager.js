@@ -1,15 +1,10 @@
 class AudioManager {
   constructor() {
-    // Proper singleton via window property (survives script re-execution)
     if (window.__audioManager) return window.__audioManager;
     window.__audioManager = this;
-
-    // Absolute paths — work from any subdirectory (start screen or gameplay/)
     this.bgm      = new Audio('/music/music_bgm.mp3');
     this.bgm.loop = true;
     this._sfxSrc  = '/music/music_sfx_click.mp3';
-
-    // Persisted settings
     this._volume  = parseFloat(localStorage.getItem('aud_volume') ?? '0.7');
     this._musicOn = (localStorage.getItem('aud_music') ?? 'true') === 'true';
     this._sfxOn   = (localStorage.getItem('aud_sfx')   ?? 'true') === 'true';
@@ -17,7 +12,6 @@ class AudioManager {
     this._applyVolume();
   }
 
-  /** Start BGM on first user interaction */
   playBGM() {
     if (!this._musicOn) return;
     if (this.bgm.paused) {
@@ -27,7 +21,6 @@ class AudioManager {
     }
   }
 
-  /** Resume BGM when navigating to a new page (no new interaction needed) */
   resumeBGM() {
     if (sessionStorage.getItem('bgm_started') === '1') {
       this.playBGM();
