@@ -27,6 +27,24 @@ html, body {
   flex-direction: column;
 }
 
+/* Volume Slider (match main styles.css) */
+.volume-slider {
+  appearance: none;
+  width: 100px;
+  height: 4px;
+  border-radius: 4px;
+  background: #2a1505;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold-light);
+}
+
 /* Top */
 .top-bar {
   display: flex;
@@ -43,6 +61,17 @@ html, body {
   display: flex; align-items: center; gap: 8px; min-width: 140px;
 }
 .top-bar__right { justify-content: flex-end; }
+
+.top-bar__btn {
+  background: none;
+  border: none;
+  color: var(--parchment);
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 2px 4px;
+}
+.top-bar__btn:hover { opacity: 1; }
 
 .score-badge {
   background: #2a1505;
