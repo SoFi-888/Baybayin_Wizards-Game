@@ -290,7 +290,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 0;
+  padding: 12px 0;  // make click sounds a bit louder than the general volume setting
+  // (many browsers default audio files low), cap at 1.0
+  sfx.volume = Math.min(1, this._volume * 7);
   border-bottom: 1px solid rgba(139,101,16,0.25);
 }
 .setting-row:last-of-type { border-bottom: none; }

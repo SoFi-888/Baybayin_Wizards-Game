@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const creditsModal = new CreditsModal();
 
   new ResumeButton('btnResume');
-
+  // try playing/resuming BGM immediately; browsers may block if no interaction
+  audioManager.resumeBGM();
+  audioManager.playBGM();
   document.addEventListener('click', () => audioManager.playBGM(), { once: true });
 
   document.querySelectorAll('.btn').forEach(btn => {

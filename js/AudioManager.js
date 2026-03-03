@@ -39,7 +39,9 @@ class AudioManager {
   playSFX() {
     if (!this._sfxOn) return;
     const sfx = new Audio(this._sfxSrc);
-    sfx.volume = this._volume;
+    // boost all sound effects relative to master volume
+    // (most audio assets are recorded fairly quiet)
+    sfx.volume = Math.min(1, this._volume * 10);
     sfx.play().catch(() => {});
   }
 
