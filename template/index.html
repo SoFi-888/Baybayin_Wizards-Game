@@ -35,6 +35,10 @@
           Settings
         </button>
 
+        <button class="btn btn--credits" id="btnCredits" type="button" aria-label="View credits">
+          Credits
+        </button>
+
       </nav>
     </div>
   </main>
@@ -109,8 +113,21 @@
     </div>
   </div>
 
+  <!-- Credits IP -->
+  <div class="modal-overlay" id="creditsModal" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
+    <div class="modal">
+      <button class="modal-close" id="creditsModalClose" aria-label="Close credits">✕</button>
+      <h2 class="modal-title" id="creditsTitle">Credits</h2>
+      <div class="credits-content">
+        <p class="credits-text">BGM: boba date by Stream Cafe</p>
+        <p class="credits-text"><a href="https://www.youtube.com/watch?v=a3ruJFU5C6g" target="_blank">https://www.youtube.com/watch?v=a3ruJFU5C6g</a></p>
+      </div>
+    </div>
+  </div>
+
   <script src="/js/AudioManager.js"></script>
   <script src="/js/SettingsModal.js"></script>
+  <script src="/js/CreditsButton.js"></script>
   <script src="/js/ResumeButton.js"></script>
   <script src="/js/StartButton.js"></script>
   <script src="/js/main.js"></script>
@@ -127,6 +144,14 @@
 
       document.getElementById('nameModalClose').addEventListener('click', function () {
         overlay.classList.remove('is-open');
+      });
+
+      document.getElementById('btnSettings').addEventListener('click', function () {
+        document.getElementById('settingsModal').classList.add('is-open');
+      });
+
+      document.getElementById('btnCredits').addEventListener('click', function () {
+        document.getElementById('creditsModal').classList.add('is-open');
       });
 
       btn.addEventListener('click', function () {
