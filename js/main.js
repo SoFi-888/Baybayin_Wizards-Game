@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   const settingsModal = new SettingsModal();
+  const creditsModal = new CreditsModal();
 
   new ResumeButton('btnResume');
 
@@ -12,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('btnSettings').addEventListener('click', () => {
     settingsModal.open();
+  });
+
+  document.getElementById('btnCredits').addEventListener('click', () => {
+    creditsModal.open();
   });
 
 });

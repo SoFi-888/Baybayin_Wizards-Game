@@ -192,6 +192,40 @@ body {
   filter: brightness(1.1);
 }
 
+/* ─── Credits Button ─────────────────────────────────────────── */
+.btn--credits {
+  background: #c49010;
+  color: var(--ink);
+  border: 1px solid rgba(139,101,16,0.4);
+}
+.btn--credits:hover {
+  color: var(--parchment-dim);
+  border-color: var(--gold-dark);
+  filter: brightness(1.1);
+}
+
+/* ─── Credits Text Links ─────────────────────────────────────── */
+.credits-text a {
+  color: var(--gold-light);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.credits-text a:hover {
+  color: var(--gold);
+}
+
+/* value spans used in settings/credits rows */
+.setting-value {
+  color: var(--parchment);
+}
+.setting-value a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+.setting-value a:hover {
+  color: #ffffff;
+}
+
 /* ─── Settings Modal Overlay ─────────────────────────────────── */
 .modal-overlay {
   position: fixed;
@@ -260,6 +294,18 @@ body {
   border-bottom: 1px solid rgba(139,101,16,0.25);
 }
 .setting-row:last-of-type { border-bottom: none; }
+
+/* helper to suppress divider on specific rows */
+.setting-row.no-border {
+  border-bottom: none;
+  justify-content: flex-start; /* keep content on left edge when label is empty */
+}
+
+/* when label is blank give value a little left offset so it doesn't hug the border */
+.setting-row.no-border .setting-value {
+  margin-left: 8px;
+}
+
 
 .setting-label {
   font-size: 0.9rem;
