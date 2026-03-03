@@ -39,6 +39,10 @@
           Credits
         </button>
 
+        <button class="btn btn--study" id="btnStudySheet" type="button" aria-label="Open study sheet">
+          Study Sheet
+        </button>
+
       </nav>
     </div>
   </main>
@@ -113,6 +117,27 @@
     </div>
   </div>
 
+  <!-- Study Sheet Modal -->
+  <div class="modal-overlay study-overlay" id="studyModal" role="dialog" aria-modal="true" aria-label="Baybayin Study Sheet">
+    <div class="modal modal--study">
+      <button class="modal-close" id="studyModalClose" aria-label="Close study sheet">✕</button>
+      <h2 class="modal-title">Baybayin Study Sheet</h2>
+      <div class="study-img-wrap">
+        <img src="/img/hint.png" alt="Baybayin character chart showing vowels, consonants, and vowel modification (kudlit)" class="study-img" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Resume / Load Save Modal -->
+  <div class="modal-overlay" id="resumeModal" role="dialog" aria-modal="true" aria-label="Load Save File">
+    <div class="modal modal--saves">
+      <button class="modal-close" id="resumeModalClose" aria-label="Close">✕</button>
+      <h2 class="modal-title">Load Save</h2>
+      <p class="saves-subtitle">Choose a save file to continue your adventure.</p>
+      <div class="save-slots" id="resumeSlots"></div>
+    </div>
+  </div>
+
   <!-- Credits Modal -->
   <div class="modal-overlay" id="creditsModal" role="dialog" aria-modal="true" aria-labelledby="creditsTitle">
     <div class="modal">
@@ -147,6 +172,7 @@
     </div>
   </div>
 
+  <script src="/js/SaveManager.js"></script>
   <script src="/js/AudioManager.js"></script>
   <script src="/js/SettingsModal.js"></script>
   <script src="/js/CreditsButton.js"></script>
@@ -198,6 +224,24 @@
 
       input.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') confirm.click();
+      });
+
+      // Study Sheet
+      var studyBtn     = document.getElementById('btnStudySheet');
+      var studyOverlay = document.getElementById('studyModal');
+      var studyClose   = document.getElementById('studyModalClose');
+
+      studyBtn.addEventListener('click', function () {
+        studyOverlay.classList.add('is-open');
+      });
+      studyClose.addEventListener('click', function () {
+        studyOverlay.classList.remove('is-open');
+      });
+      studyOverlay.addEventListener('click', function (e) {
+        if (e.target === studyOverlay) studyOverlay.classList.remove('is-open');
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') studyOverlay.classList.remove('is-open');
       });
     });
   </script>

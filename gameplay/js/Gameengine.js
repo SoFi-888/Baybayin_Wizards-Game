@@ -227,7 +227,7 @@ class GameEngine {
     // Pause
     document.getElementById('btnResumePause').addEventListener('click', () => this._closePause());
     document.getElementById('btnRestartPause').addEventListener('click', () => { this._closePause(); this.reset(); });
-    document.getElementById('btnBackMenu').addEventListener('click', () => window.location.href = '/template/index.html');
+    document.getElementById('btnBackMenu').addEventListener('click', () => window.location.href = '../index.html');
 
     document.getElementById('btnClosePause').addEventListener('click',    () => this._closePause());
     document.getElementById('btnCloseGameOver').addEventListener('click', () => document.getElementById('gameOverOverlay').classList.add('hidden'));
@@ -243,7 +243,7 @@ class GameEngine {
       document.getElementById('gameOverOverlay').classList.add('hidden');
       this.reset();
     });
-    document.getElementById('btnBackMenu2').addEventListener('click', () => window.location.href = '/template/index.html');
+    document.getElementById('btnBackMenu2').addEventListener('click', () => window.location.href = '../index.html');
 
     // Victory
     document.getElementById('btnNextChapter').addEventListener('click', () => {
@@ -251,7 +251,7 @@ class GameEngine {
       this.resume();
       this._startQueue();
     });
-    document.getElementById('btnBackMenu3').addEventListener('click', () => window.location.href = '/template/index.html');
+    document.getElementById('btnBackMenu3').addEventListener('click', () => window.location.href = '../index.html');
 
     this.builder.onSlotClick((slot) => {
       if (this._paused) return;
@@ -317,15 +317,64 @@ class GameEngine {
     }, delay);
   }
 
-  /* SAVE / LOAD */
-  _saveProgress() {
-    localStorage.setItem('baybayinSave', JSON.stringify({
-      score: this.hud.score, lives: this.hud.lives,
-      wordsFound: this._wordsFound, bestCombo: this.hud.bestCombo,
-    }));
+  /* SAVE/LOAD */
+_buildSaveData() {
+    return {
+      playerName:  localStorage.getItem('playerName') || 'Player',
+      score:       this.hud.score,
+      bestStreak:  this.hud.bestStreak,
+      bestCombo:   this.hud.bestCombo,
+      lives:       this.hud.lives,
+      wordsFound:  this._wordsFound,
+      hintsLeft:   this._hintsLeft,
+      scrambLeft:  this._scrambLeft,
+      chapterIdx:  this.enemy.chapterIdx,
+      enemyIdx:    this.enemy.enemyIdx,
+      levelNum:    parseInt(document.getElementById('levelNum')?.textContent || '1', 10),
+    };
   }
-  _clearSave() { localStorage.removeItem('baybayinSave'); }
+  saveToSlot(slotIndex) {
+    SaveManager.writeSlot(slotIndex, this._buildSaveData());
+    SaveManager.setActiveSlot(slotIndex);
+  }
 
+  loadFromSlot(slotIndex) {
+    const data = SaveManager.getSlot(slotIndex);
+    if (!data) return false;
+    this.hud._score      = data.score      || 0;
+    this.hud._lives      = data.lives      || 5;
+    this.hud._bestStreak = data.bestStreak || 0;
+    this.hud._bestCombo  = data.bestCombo  || 1;
+    this.hud._wordsFound = data.wordsFound || 0;
+    this.hud.scoreEl.textContent = this.hud._score.toLocaleString();
+    this.hud._renderHeroHP();
+    this.hud._updateCombo();
+    const streakEl = document.getElementById('streakVal');
+    if (streakEl) streakEl.textContent = this.hud._bestStreak;
+    this._wordsFound = data.wordsFound || 0;
+    this._hintsLeft  = data.hintsLeft !== undefined ? data.hintsLeft : 3;
+    this._scrambLeft = data.scrambLeft !== undefined ? data.scrambLeft : 3;
+
+    this.enemy._chapterIdx = data.chapterIdx || 0;
+    this.enemy._enemyIdx   = data.enemyIdx   || 0;
+    this.enemy.loadCurrent();
+
+    this._refreshAuxUI();
+    return true;
+  }
+
+  _saveProgress() {
+    const slot = SaveManager.getActiveSlot();
+    if (slot !== null) {
+      SaveManager.writeSlot(slot, this._buildSaveData());
+    }
+  }
+
+  _clearSave() {
+    const slot = SaveManager.getActiveSlot();
+    if (slot !== null) SaveManager.clearSlot(slot);
+    SaveManager.clearActiveSlot();
+  }
   /* HELPERS */
   _arrEqual(a, b) {
     return a.length === b.length && a.every((v, i) => v === b[i]);

@@ -140,10 +140,11 @@
 <div class="overlay hidden" id="pauseOverlay">
   <div class="overlay-box">
     <button class="ol-close" id="btnClosePause" aria-label="Close">✕</button>
-    <h2 class="overlay-title">— Paused —</h2>
+    <h2 class="overlay-title">Paused</h2>
     <button class="ol-btn ol-btn--primary" id="btnResumePause">Resume</button>
     <button class="ol-btn"                 id="btnRestartPause">Restart</button>
     <button class="ol-btn"                 id="btnOpenSettings">Settings</button>
+    <button class="ol-btn"                 id="btnSaveGame">Save Progress</button>
     <button class="ol-btn"                 id="btnBackMenu">Main Menu</button>
   </div>
 </div>
@@ -212,9 +213,38 @@
         <div class="gp-toggle-thumb"></div>
       </label>
     </div>
+
+    <div class="gp-setting-row" style="border-top:1px solid rgba(139,101,16,0.3); margin-top:8px; padding-top:16px; border-bottom:none;">
+      <button class="ol-btn ol-btn--primary gp-save-btn" id="btnSaveGame" style="width:100%; font-size:0.72rem;">
+        Save Progress
+      </button>
+    </div>
   </div>
 </div>
 
+<!-- Save Slot -->
+<div class="gp-settings-overlay hidden" id="saveSlotModal" role="dialog" aria-modal="true">
+  <div class="gp-settings-box gp-save-modal">
+    <button class="ol-close" id="saveSlotClose" aria-label="Close">✕</button>
+    <h2 class="overlay-title" style="margin-bottom:6px;">Save Progress</h2>
+    <p class="save-modal-sub">Choose a slot to save your game.</p>
+    <div class="save-slots" id="saveSlots"></div>
+  </div>
+</div>
+
+<!-- Save Confirm -->
+<div class="gp-settings-overlay hidden" id="saveConfirmModal" role="dialog" aria-modal="true">
+  <div class="gp-settings-box gp-confirm-box">
+    <h2 class="overlay-title" style="margin-bottom:8px;">Save Progress?</h2>
+    <p class="save-modal-sub" id="saveConfirmMsg">Save to Slot 1?</p>
+    <div style="display:flex; gap:12px; margin-top:16px; justify-content:center;">
+      <button class="ol-btn ol-btn--primary" id="saveConfirmYes" style="min-width:90px;">Yes</button>
+      <button class="ol-btn" id="saveConfirmNo"  style="min-width:90px;">No</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/SaveManager.js"></script>
 <script src="js/AudioManager.js"></script>
 <script src="js/data.js"></script>
 <script src="js/HUD.js"></script>

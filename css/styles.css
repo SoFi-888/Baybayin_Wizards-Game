@@ -192,7 +192,7 @@ body {
   filter: brightness(1.1);
 }
 
-/* ─── Credits Button ─────────────────────────────────────────── */
+/* ─ Credits Button ─ */
 .btn--credits {
   background: #c49010;
   color: var(--ink);
@@ -285,25 +285,21 @@ body {
 }
 .modal-close:hover { opacity: 1; }
 
-/* ─── Setting Rows ───────────────────────────────────────────── */
+/* ─ Setting Rows ─ */
 .setting-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 0;  // make click sounds a bit louder than the general volume setting
-  // (many browsers default audio files low), cap at 1.0
-  sfx.volume = Math.min(1, this._volume * 7);
+  padding: 12px 0;
   border-bottom: 1px solid rgba(139,101,16,0.25);
 }
 .setting-row:last-of-type { border-bottom: none; }
 
-/* helper to suppress divider on specific rows */
 .setting-row.no-border {
   border-bottom: none;
-  justify-content: flex-start; /* keep content on left edge when label is empty */
+  justify-content: flex-start;
 }
 
-/* when label is blank give value a little left offset so it doesn't hug the border */
 .setting-row.no-border .setting-value {
   margin-left: 8px;
 }
@@ -315,7 +311,7 @@ body {
   letter-spacing: 0.05em;
 }
 
-/* ─── Toggle Switch ──────────────────────────────────────────── */
+/* ─ Toggle Switch ─ */
 .toggle {
   position: relative;
   width: 46px;
@@ -356,7 +352,7 @@ body {
   transform: translateX(22px);
 }
 
-/* ─── Volume Slider ──────────────────────────────────────────── */
+/* ─ Volume Slider ─ */
 .volume-slider {
   appearance: none;
   width: 100px;
@@ -374,7 +370,7 @@ body {
   background: var(--gold-light);
 }
 
-/* ─── Name Entry Modal ───────────────────────────────────────── */
+/* ─ Name Entry Modal ─ */
 .modal--name {
   min-width: min(360px, 88vw);
   display: flex;
@@ -426,3 +422,160 @@ body {
 }
 
 .hidden { display: none !important; }
+
+.btn--study {
+  background: #c49010;
+  color: var(--ink);
+  border: 1px solid rgba(139,101,16,0.4);
+  box-shadow: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+.btn--study:hover {
+  color: var(--parchment-dim);
+  border-color: var(--gold-dark);
+  filter: brightness(1.1);
+}
+
+/* ─ Study Sheet Modal ─ */
+.study-overlay {
+  z-index: 110;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal--study {
+  background: linear-gradient(160deg, #1e0f04 0%, #110800 100%);
+  border: 1px solid var(--gold-dark);
+  border-radius: 8px;
+  padding: 28px 28px 24px;
+  max-width: min(900px, 94vw);
+  width: 100%;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.95), 0 0 0 1px rgba(212,160,23,0.12);
+  transform: scale(0.92);
+  transition: transform 0.25s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.study-overlay.is-open .modal--study {
+  transform: scale(1);
+}
+
+.study-img-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(139,101,16,0.35);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f5e6c8;
+}
+
+.study-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+/* ─── Resume / Save Modal ────────────────────────────────────── */
+.modal--saves {
+  min-width: min(480px, 92vw);
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 36px 36px 32px;
+}
+
+.saves-subtitle {
+  font-size: 0.85rem;
+  color: var(--parchment-dim);
+  text-align: center;
+  margin-top: -10px;
+  font-style: italic;
+}
+
+/* ─── Save Slot Cards ────────────────────────────────────────── */
+.save-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.save-card {
+  border-radius: 5px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s;
+  border: 1px solid rgba(139,101,16,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.save-card--filled {
+  background: rgba(212,160,23,0.07);
+}
+.save-card--filled:hover {
+  background: rgba(212,160,23,0.14);
+  transform: translateY(-1px);
+  border-color: var(--gold-dark);
+}
+
+.save-card--empty {
+  background: rgba(0,0,0,0.3);
+  opacity: 0.55;
+  cursor: default;
+}
+
+.save-card__slot {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+}
+
+.save-card__name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 0.9rem;
+  color: var(--gold-light);
+  letter-spacing: 0.1em;
+}
+
+.save-card__stats {
+  display: flex;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--parchment);
+}
+
+.save-card__info {
+  display: flex;
+  gap: 16px;
+  font-size: 0.75rem;
+  color: var(--parchment-dim);
+}
+
+.save-card__date {
+  font-size: 0.68rem;
+  color: rgba(201,169,110,0.45);
+  margin-top: 2px;
+}
+
+.save-card__empty-label {
+  font-size: 0.85rem;
+  color: rgba(201,169,110,0.3);
+  font-style: italic;
+  text-align: center;
+  padding: 8px 0;
+}
