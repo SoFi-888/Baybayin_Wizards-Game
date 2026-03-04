@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   saveConfirmYes.addEventListener('click', function() {
     if (pendingSaveSlot !== null) {
-      engine.saveToSlot(pendingSaveSlot);  /* <-- this is what actually writes to localStorage */
+      engine.saveToSlot(pendingSaveSlot);
       pendingSaveSlot = null;
     }
     saveConfirmModal.classList.add('hidden');
