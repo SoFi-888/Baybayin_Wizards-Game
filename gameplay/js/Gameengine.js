@@ -83,7 +83,7 @@ class GameEngine {
     this.builder.addChar(data.char, data.roman, index);
   }
 
-  /* ATTACK / SUBMIT */
+  /* ATTACK/SUBMIT */
   _attack() {
     if (this._paused || !this._current || this.builder.length === 0) return;
 
@@ -207,7 +207,7 @@ class GameEngine {
     });
   }
 
-  /* GAME OVER / VICTORY */
+  /* GAME OVER/VICTORY */
   _gameOver() {
     this.pause();
     document.getElementById('finalScore').textContent = this.hud.score.toLocaleString();

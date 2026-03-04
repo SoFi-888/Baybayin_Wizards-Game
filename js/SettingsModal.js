@@ -8,7 +8,7 @@ class SettingsModal {
     audioManager.bindSettingsControls();
   }
 
-  /** Open Settings */
+  /* Open Settings */
   open() {
     this.overlay.classList.add('is-open');
     audioManager.syncUI();

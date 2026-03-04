@@ -2,7 +2,7 @@ class SaveManager {
   static SLOTS      = 3;
   static KEY_PREFIX = 'bw_save_slot_';
 
-  /* ─ Read / Write ─ */
+  /* ─ Read/Write ─ */
   static getSlot(n) {
     try {
       const raw = localStorage.getItem(SaveManager.KEY_PREFIX + n);

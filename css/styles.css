@@ -29,7 +29,7 @@ body {
   justify-content: center;
 }
 
-/* ─── Main Screen Container ──────────────────────────────────── */
+/* ─ Main Screen Container ─ */
 .screen {
   position: relative;
   z-index: 10;
@@ -38,7 +38,7 @@ body {
   align-items: center;
 }
 
-/* ─── Title Panel ────────────────────────────────────────────── */
+/* ─ Title Panel ─ */
 .title-panel {
   position: relative;
   background: #1e0f04;
@@ -66,7 +66,7 @@ body {
 .corner-tl { top: 8px;    right: 14px; border-width: 2px 2px 0 0; }
 .corner-br { bottom: 8px; left: 14px;  border-width: 0 0 2px 2px; }
 
-/* ─── Baybayin Title ─────────────────────────────────────────── */
+/* ─ Baybayin Title ─ */
 .baybayin-title {
   font-size: clamp(2.8rem, 7vw, 4.5rem);
   letter-spacing: 0.12em;
@@ -108,7 +108,7 @@ body {
   margin: 0 auto 32px;
 }
 
-/* ─── Button Group ───────────────────────────────────────────── */
+/* ─ Button Group ─ */
 .btn-group {
   display: flex;
   flex-direction: column;
@@ -118,7 +118,7 @@ body {
   margin: 0 auto;
 }
 
-/* ─── Base Button ────────────────────────────────────────────── */
+/* ─ Base Button ─ */
 .btn {
   position: relative;
   display: flex;
@@ -152,7 +152,7 @@ body {
   line-height: 1;
 }
 
-/* ─── Start Button ───────────────────────────────────────────── */
+/* ─ Start Button ─ */
 .btn--start {
   background: #c49010;
   color: var(--ink);
@@ -163,7 +163,7 @@ body {
   color: var(--gold-light);
 }
 
-/* ─── Resume Button ──────────────────────────────────────────── */
+/* ─ Resume Button ─ */
 .btn--resume {
   background: #c49010;
   color: var(--ink);
@@ -180,7 +180,7 @@ body {
   pointer-events: none;
 }
 
-/* ─── Settings Button ────────────────────────────────────────── */
+/* ─ Settings Button ─ */
 .btn--settings {
   background: #c49010;
   color: var(--ink);
@@ -204,7 +204,7 @@ body {
   filter: brightness(1.1);
 }
 
-/* ─── Credits Text Links ─────────────────────────────────────── */
+/* ─ Credits Text Links ─ */
 .credits-text a {
   color: var(--gold-light);
   text-decoration: none;
@@ -226,7 +226,7 @@ body {
   color: #ffffff;
 }
 
-/* ─── Settings Modal Overlay ─────────────────────────────────── */
+/* ─ Settings Modal Overlay ─ */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -246,7 +246,7 @@ body {
   pointer-events: all;
 }
 
-/* ─── Modal Box ──────────────────────────────────────────────── */
+/* ─ Modal Box ─ */
 .modal {
   background: #1e0f04;
   border: 1px solid var(--gold-dark);
@@ -485,7 +485,7 @@ body {
   object-fit: contain;
 }
 
-/* ─── Resume / Save Modal ────────────────────────────────────── */
+/* ─ Resume/Save Modal ─ */
 .modal--saves {
   min-width: min(480px, 92vw);
   max-width: 520px;
@@ -503,7 +503,7 @@ body {
   font-style: italic;
 }
 
-/* ─── Save Slot Cards ────────────────────────────────────────── */
+/* ─ Save Slot Cards ─ */
 .save-slots {
   display: flex;
   flex-direction: column;

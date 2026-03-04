@@ -6,7 +6,7 @@ class CreditsModal {
     this._bindEvents();
   }
 
-  /** Open Credits */
+  /* Open Credits */
   open() {
     this.overlay.classList.add('is-open');
   }

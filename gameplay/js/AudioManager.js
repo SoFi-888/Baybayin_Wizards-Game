@@ -2,9 +2,9 @@ class AudioManager {
   constructor() {
     if (window.__audioManager) return window.__audioManager;
     window.__audioManager = this;
-    this.bgm      = new Audio('/music/music_bgm.mp3');
+    this.bgm      = new Audio('music/music_bgm.mp3');
     this.bgm.loop = true;
-    this._sfxSrc  = '/music/music_sfx_click.mp3';
+    this._sfxSrc  = 'music/music_sfx_click.mp3';
     this._volume  = parseFloat(localStorage.getItem('aud_volume') ?? '0.7');
     this._musicOn = (localStorage.getItem('aud_music') ?? 'true') === 'true';
     this._sfxOn   = (localStorage.getItem('aud_sfx')   ?? 'true') === 'true';
@@ -32,7 +32,6 @@ class AudioManager {
   playSFX() {
     if (!this._sfxOn) return;
     const sfx = new Audio(this._sfxSrc);
-    // boost all sound effects relative to master volume
     sfx.volume = Math.min(1, this._volume * 10);
     sfx.play().catch(() => {});
   }
