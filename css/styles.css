@@ -136,15 +136,6 @@ body {
   overflow: hidden;
 }
 
-/* Gloss sheen on buttons */
-.btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
-
 .btn:active { transform: scale(0.97); }
 
 .btn-icon {
@@ -204,7 +195,7 @@ body {
   filter: brightness(1.1);
 }
 
-/* ─ Credits Text Links ─ */
+/* ─ Credits Links ─ */
 .credits-text a {
   color: var(--gold-light);
   text-decoration: none;
@@ -214,7 +205,6 @@ body {
   color: var(--gold);
 }
 
-/* value spans used in settings/credits rows */
 .setting-value {
   color: var(--parchment);
 }
