@@ -100,6 +100,6 @@ const DATA = {
   /* ─ Chapters ─ */
   chapters: [
     { title:'Chapter 1: The Enchanted Forest',  enemyIndices:[0,1] },
-    { title:'Chapter 2: Kalaspastangan',  enemyIndices:[2,3] },
+    { title:'Chapter 2: Silent Woods',  enemyIndices:[2,3] },
   ],
 };

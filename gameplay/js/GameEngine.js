@@ -256,6 +256,7 @@ class GameEngine {
     // Victory
     document.getElementById('btnNextChapter').addEventListener('click', () => {
       document.getElementById('victoryOverlay').classList.add('hidden');
+      this.enemy.loadCurrent();
       this.resume();
       this._startQueue();
     });
