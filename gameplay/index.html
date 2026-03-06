@@ -6,8 +6,47 @@
   <title>Baybayin Wizards</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/gamestyle.css" />
+  <style>
+    /* Inline styles for the comic overlay to ensure it works immediately */
+    .comic-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .comic-wrap {
+      text-align: center;
+    }
+    .comic-img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border: 2px solid #8b6510;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .comic-hint {
+      margin-top: 15px;
+      font-family: 'Cinzel', serif;
+      color: #f0c040;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
+
+<div id="cutsceneOverlay" class="comic-overlay">
+  <div class="comic-wrap">
+    <img src="img/comic.png" alt="Story" class="comic-img">
+    <p class="comic-hint">Click anywhere to begin the battle...</p>
+  </div>
+</div>
 
 <header class="top-bar">
   <div class="top-bar__left">
@@ -38,12 +77,10 @@
 <section class="battle-stage">
   <div class="stage-bg"></div>
 
-  <!-- Hero HP bar -->
   <div class="hp-overlay hp-overlay--hero">
     <div class="hp-track"><div class="hp-fill hp-fill--hero" id="heroHpFill"></div></div>
   </div>
 
-  <!-- Enemy HP bar -->
   <div class="hp-overlay hp-overlay--enemy">
     <div class="hp-track"><div class="hp-fill hp-fill--enemy" id="enemyHpFill"></div></div>
   </div>
@@ -63,7 +100,6 @@
 
 <section class="game-floor">
 
-  <!-- Left panel -->
   <div class="curtain-panel curtain-panel--left">
     <div class="curtain-top"></div>
     <div class="panel-content">
@@ -88,7 +124,6 @@
     <div class="curtain-bottom"></div>
   </div>
 
-  <!-- Center -->
   <div class="center-panel">
     <div class="combo-display" id="comboDisplay">
       <span class="combo-text" id="comboText">x1</span>
@@ -109,7 +144,6 @@
     </div>
   </div>
 
-  <!-- Right panel -->
   <div class="curtain-panel curtain-panel--right">
     <div class="curtain-top"></div>
     <div class="panel-content">
@@ -175,7 +209,6 @@
   </div>
 </div>
 
-<!-- Settings Modal -->
 <div class="gp-settings-overlay hidden" id="gpSettingsModal" role="dialog" aria-modal="true">
   <div class="gp-settings-box">
     <button class="ol-close" id="gpModalClose" aria-label="Close settings">✕</button>
@@ -222,7 +255,6 @@
   </div>
 </div>
 
-<!-- Save Slot -->
 <div class="gp-settings-overlay hidden" id="saveSlotModal" role="dialog" aria-modal="true">
   <div class="gp-settings-box gp-save-modal">
     <button class="ol-close" id="saveSlotClose" aria-label="Close">✕</button>
@@ -232,7 +264,6 @@
   </div>
 </div>
 
-<!-- Save Confirm -->
 <div class="gp-settings-overlay hidden" id="saveConfirmModal" role="dialog" aria-modal="true">
   <div class="gp-settings-box gp-confirm-box">
     <h2 class="overlay-title" style="margin-bottom:8px;">Save Progress?</h2>
@@ -256,11 +287,21 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // 1. Handle Player Name Display
     var name = localStorage.getItem('playerName');
     var byId    = document.getElementById('playerName');
     var byClass = document.querySelector('.score-label');
     if (byId)    byId.textContent    = name ? name.toUpperCase() : 'PLAYER';
     if (byClass) byClass.textContent = name ? name.toUpperCase() : 'TALA';
+
+    // 2. Comic Overlay Interaction
+    var comic = document.getElementById('cutsceneOverlay');
+    if (comic) {
+      comic.addEventListener('click', function() {
+        comic.classList.add('hidden');
+        // If your game engine needs an explicit trigger to start music/logic, add it here.
+      });
+    }
   });
 </script>
 </body>

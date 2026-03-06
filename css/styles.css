@@ -46,13 +46,9 @@ body {
   border-radius: 6px;
   padding: 40px 60px 36px;
   text-align: center;
-  box-shadow:
-    0 0 0 1px #d4a01726;
+  box-shadow: 0 0 0 1px #d4a01726;
   min-width: min(520px, 90vw);
 }
-
-.title-panel::before { top: 10px;    left: 14px;  }
-.title-panel::after  { bottom: 10px; right: 14px; }
 
 .corner-tl,
 .corner-br {
@@ -73,9 +69,7 @@ body {
   color: var(--gold);
   line-height: 1;
   margin-bottom: 6px;
-
-  text-shadow:
-    0 0 6px rgba(212,160,23,0.6),
+  text-shadow: 0 0 6px rgba(212,160,23,0.6);
 }
 
 .title-en {
@@ -85,11 +79,8 @@ body {
   letter-spacing: 0.35em;
   text-transform: uppercase;
   margin-bottom: 4px;
-
   color: var(--gold);
-
-  text-shadow:
-    0 0 4px rgba(212,160,23,0.5),
+  text-shadow: 0 0 4px rgba(212,160,23,0.5);
 }
 
 .subtitle {
@@ -195,27 +186,6 @@ body {
   filter: brightness(1.1);
 }
 
-/* ─ Credits Links ─ */
-.credits-text a {
-  color: var(--gold-light);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.credits-text a:hover {
-  color: var(--gold);
-}
-
-.setting-value {
-  color: var(--parchment);
-}
-.setting-value a {
-  color: var(--gold-light);
-  text-decoration: none;
-}
-.setting-value a:hover {
-  color: #ffffff;
-}
-
 /* ─ Settings Modal Overlay ─ */
 .modal-overlay {
   position: fixed;
@@ -259,105 +229,6 @@ body {
   color: var(--gold);
   margin-bottom: 28px;
   text-align: center;
-}
-
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  background: none;
-  border: none;
-  color: var(--parchment-dim);
-  font-size: 1.2rem;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.15s;
-}
-.modal-close:hover { opacity: 1; }
-
-/* ─ Setting Rows ─ */
-.setting-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(139,101,16,0.25);
-}
-.setting-row:last-of-type { border-bottom: none; }
-
-.setting-row.no-border {
-  border-bottom: none;
-  justify-content: flex-start;
-}
-
-.setting-row.no-border .setting-value {
-  margin-left: 8px;
-}
-
-
-.setting-label {
-  font-size: 0.9rem;
-  color: var(--parchment-dim);
-  letter-spacing: 0.05em;
-}
-
-/* ─ Toggle Switch ─ */
-.toggle {
-  position: relative;
-  width: 46px;
-  height: 24px;
-  cursor: pointer;
-}
-
-.toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle-track {
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  background: #2a1505;
-  border: 1px solid var(--gold-dark);
-}
-
-.toggle input:checked + .toggle-track {
-  background: var(--gold-dark);
-}
-
-.toggle-thumb {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--parchment-dim);
-  transition: transform 0.2s;
-}
-
-.toggle input:checked ~ .toggle-thumb {
-  transform: translateX(22px);
-}
-
-/* ─ Volume Slider ─ */
-.volume-slider {
-  appearance: none;
-  width: 100px;
-  height: 4px;
-  border-radius: 4px;
-  background: #2a1505;
-  cursor: pointer;
-}
-
-.volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--gold-light);
 }
 
 /* ─ Name Entry Modal ─ */
@@ -411,8 +282,6 @@ body {
   margin-top: 4px;
 }
 
-.hidden { display: none !important; }
-
 .btn--study {
   background: #c49010;
   color: var(--ink);
@@ -427,145 +296,39 @@ body {
   filter: brightness(1.1);
 }
 
-/* ─ Study Sheet Modal ─ */
-.study-overlay {
-  z-index: 110;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.modal--study {
-  background: linear-gradient(160deg, #1e0f04 0%, #110800 100%);
-  border: 1px solid var(--gold-dark);
-  border-radius: 8px;
-  padding: 28px 28px 24px;
-  max-width: min(900px, 94vw);
-  width: 100%;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.95), 0 0 0 1px rgba(212,160,23,0.12);
-  transform: scale(0.92);
-  transition: transform 0.25s ease;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.study-overlay.is-open .modal--study {
-  transform: scale(1);
-}
-
-.study-img-wrap {
-  width: 100%;
+/* ── COMIC OVERLAY (Fills Screen Completely) ── */
+.comic-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(139,101,16,0.35);
-  border-radius: 6px;
-  overflow: hidden;
-  background: #f5e6c8;
-}
-
-.study-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  max-height: 75vh;
-  object-fit: contain;
-}
-
-/* ─ Resume/Save Modal ─ */
-.modal--saves {
-  min-width: min(480px, 92vw);
-  max-width: 520px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 36px 36px 32px;
-}
-
-.saves-subtitle {
-  font-size: 0.85rem;
-  color: var(--parchment-dim);
-  text-align: center;
-  margin-top: -10px;
-  font-style: italic;
-}
-
-/* ─ Save Slot Cards ─ */
-.save-slots {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-
-.save-card {
-  border-radius: 5px;
-  padding: 12px 16px;
   cursor: pointer;
-  transition: background 0.15s, transform 0.12s;
-  border: 1px solid rgba(139,101,16,0.4);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  transition: opacity 0.5s ease;
 }
 
-.save-card--filled {
-  background: rgba(212,160,23,0.07);
-}
-.save-card--filled:hover {
-  background: rgba(212,160,23,0.14);
-  transform: translateY(-1px);
-  border-color: var(--gold-dark);
-}
-
-.save-card--empty {
-  background: rgba(0,0,0,0.3);
-  opacity: 0.55;
-  cursor: default;
-}
-
-.save-card__slot {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  color: var(--gold-dark);
-  text-transform: uppercase;
-}
-
-.save-card__name {
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 0.9rem;
-  color: var(--gold-light);
-  letter-spacing: 0.1em;
-}
-
-.save-card__stats {
-  display: flex;
-  gap: 16px;
-  font-size: 0.8rem;
-  color: var(--parchment);
-}
-
-.save-card__info {
-  display: flex;
-  gap: 16px;
-  font-size: 0.75rem;
-  color: var(--parchment-dim);
-}
-
-.save-card__date {
-  font-size: 0.68rem;
-  color: rgba(201,169,110,0.45);
-  margin-top: 2px;
-}
-
-.save-card__empty-label {
-  font-size: 0.85rem;
-  color: rgba(201,169,110,0.3);
-  font-style: italic;
+.comic-wrap {
   text-align: center;
-  padding: 8px 0;
 }
+
+.comic-img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border: 2px solid var(--gold-dark);
+  box-shadow: 0 0 30px rgba(212, 160, 23, 0.2);
+}
+
+.comic-hint {
+  margin-top: 20px;
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--gold-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: pulse 2s infinite;
+}
+
+.hidden { display: none !important; }
+
+@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
