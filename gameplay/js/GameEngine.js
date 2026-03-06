@@ -40,6 +40,7 @@ class GameEngine {
   reset() {
     this.builder.clear().forEach(s => this.grid.deselectTile(s.tileIndex));
     this._setHeroImg('img/Tala.png');
+    this._resetItems();
     this.start();
   }
 
@@ -264,6 +265,10 @@ class GameEngine {
       document.getElementById('victoryOverlay').classList.add('hidden');
       this._hintsLeft  = GameEngine.HINTS_MAX;
       this._scrambLeft = GameEngine.SCRAMBLES_MAX;
+      this.hud._lives  = HUD.MAX_LIVES;
+      this.hud._renderHeroHP();
+      this._setHeroImg('img/Tala.png');
+      this._resetItems();
       this._refreshAuxUI();
       this.enemy.loadCurrent();
       this.resume();
@@ -271,16 +276,18 @@ class GameEngine {
     });
     document.getElementById('btnBackMenu3').addEventListener('click', () => window.location.href = '../index.html');
     document.getElementById('btnEndingMenu').addEventListener('click', () => window.location.href = '../index.html');
-    
+
     this.builder.onSlotClick((slot) => {
       if (this._paused) return;
       const r = this.builder.removeByTileIndex(slot.tileIndex);
       if (r) this.grid.deselectTile(r.tileIndex);
     });
-    document.querySelectorAll('.item-use-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        this._feedback('Item used!', 'points');
-      });
+    this._items = [
+      { el: document.getElementById('item0'), type: 'heal',     used: false },
+      { el: document.getElementById('item1'), type: 'strength', used: false },
+    ];
+    this._items.forEach(item => {
+      if (item.el) item.el.addEventListener('click', () => this._useItem(item));
     });
 
     // Keyboard
@@ -390,6 +397,46 @@ _buildSaveData() {
     SaveManager.clearActiveSlot();
   }
   /* HELPERS */
+  _resetItems() {
+    const defs = [
+      { id:'item0', src:'img/health_potion.png',   alt:'Health Potion'   },
+      { id:'item1', src:'img/strength_potion.png', alt:'Strength Potion' },
+    ];
+    if (!this._items) return;
+    this._items.forEach((item, i) => {
+      item.used = false;
+      if (item.el) {
+        item.el.classList.remove('item-slot--empty');
+        item.el.innerHTML = `<img class="item-img" src="${defs[i].src}" alt="${defs[i].alt}" />`;
+        item.el.onclick = () => this._useItem(item);
+      }
+    });
+  }
+
+  /* ITEMS */
+  _useItem(item) {
+    if (this._paused || item.used) return;
+    item.used = true;
+
+    if (item.type === 'heal') {
+      const healed = Math.min(this.hud._lives + 3, HUD.MAX_LIVES);
+      this.hud._lives = healed;
+      this.hud._renderHeroHP();
+      this._feedback('+3 HP Restored!', 'correct');
+      if (this.hud._lives > 1) this._setHeroImg('img/Tala.png');
+    } else if (item.type === 'strength') {
+      this.enemy.damageEnemy(1);
+      this._feedback('Power Strike! -1 Enemy HP!', 'bonus');
+    }
+
+    // Empty the slot
+    if (item.el) {
+      item.el.innerHTML = '<div class="item-name" style="font-size:0.7rem;color:#5a3a10;text-align:center;">empty</div>';
+      item.el.classList.add('item-slot--empty');
+      item.el.onclick = null;
+    }
+  }
+  
   _setHeroImg(src) {
     const img = document.querySelector('#heroChar .hero-img');
     if (img) img.src = src;

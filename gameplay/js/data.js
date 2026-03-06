@@ -88,7 +88,7 @@ const DATA = {
     },
     {
       name: 'Cloud Turtle',
-      image: 'img/Cloud_turtle',
+      image: 'img/Cloud_turtle.png',
       lore: 'A cloud turtle drifts slowly across mountain skies, its body is light enough to float on gentle winds. Instead of a shell, it envelopes itself with a light, fluffy cloud on its back instead.',
       maxHP: 6,
       moves: ['Smash','Smoke Cloud','Thunderstrike'],
