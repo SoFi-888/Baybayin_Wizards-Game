@@ -439,6 +439,12 @@ html, body {
   top: 30% !important;
 }
 
+.feedback-msg.points {
+  left: 50% !important;
+  top: 35% !important;
+  transform: translateX(-50%);
+}
+
 .feedback-msg.correct { color: #50dd50; }
 .feedback-msg.wrong   { color: #ff4444; }
 .feedback-msg.bonus   { color: #d060ff; font-size: 1.5rem; }

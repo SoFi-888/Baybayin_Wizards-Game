@@ -39,6 +39,7 @@ class GameEngine {
 
   reset() {
     this.builder.clear().forEach(s => this.grid.deselectTile(s.tileIndex));
+    this._setHeroImg('img/Tala.png');
     this.start();
   }
 
@@ -310,14 +311,9 @@ class GameEngine {
       el.className   = `feedback-msg ${type}`;
       el.textContent = text;
 
-      if (type === 'correct' || type === 'bonus' || type === 'points') {
-        el.style.left = (5 + Math.random() * 15) + '%';
-      } else if (type === 'wrong') {
-        el.style.left = (72 + Math.random() * 15) + '%';
-      } else {
-        el.style.left = (38 + Math.random() * 10) + '%';
-      }
-      el.style.top = (8 + Math.random() * 12) + '%';
+      el.style.left = '50%';
+      el.style.transform = 'translateX(-50%)';
+      el.style.top = (28 + Math.random() * 8) + '%';
 
       this._feedLayer.appendChild(el);
       setTimeout(() => el.remove(), 3000);
@@ -387,7 +383,7 @@ _buildSaveData() {
     const img = document.querySelector('#heroChar .hero-img');
     if (img) img.src = src;
   }
-  
+
   _arrEqual(a, b) {
     return a.length === b.length && a.every((v, i) => v === b[i]);
   }
