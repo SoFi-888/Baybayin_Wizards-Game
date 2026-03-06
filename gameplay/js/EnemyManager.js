@@ -109,8 +109,8 @@ class EnemyManager {
     if (this._enemyIdx >= chapterEnemies.length) {
       this._enemyIdx = 0;
       this._chapterIdx++;
-      if (this._chapterIdx >= DATA.chapters.length) this._chapterIdx = 0;
       if (this._onChapterEnd) this._onChapterEnd();
+      if (this._chapterIdx >= DATA.chapters.length) this._chapterIdx = 0;
     } else {
       setTimeout(() => this.loadCurrent(), 400);
     }

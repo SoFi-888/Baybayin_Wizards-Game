@@ -196,8 +196,14 @@ class GameEngine {
     });
 
     this.enemy.onChapterEnd(() => {
-      document.getElementById('victoryScore').textContent = this.hud.score.toLocaleString();
-      document.getElementById('victoryOverlay').classList.remove('hidden');
+      const isLastChapter = this.enemy.chapterIdx >= DATA.chapters.length;
+      if (isLastChapter) {
+        document.getElementById('endingScore').textContent = this.hud.score.toLocaleString();
+        document.getElementById('endingOverlay').classList.remove('hidden');
+      } else {
+        document.getElementById('victoryScore').textContent = this.hud.score.toLocaleString();
+        document.getElementById('victoryOverlay').classList.remove('hidden');
+      }
       this.pause();
     });
 
@@ -256,12 +262,16 @@ class GameEngine {
     // Victory
     document.getElementById('btnNextChapter').addEventListener('click', () => {
       document.getElementById('victoryOverlay').classList.add('hidden');
+      this._hintsLeft  = GameEngine.HINTS_MAX;
+      this._scrambLeft = GameEngine.SCRAMBLES_MAX;
+      this._refreshAuxUI();
       this.enemy.loadCurrent();
       this.resume();
       this._startQueue();
     });
     document.getElementById('btnBackMenu3').addEventListener('click', () => window.location.href = '../index.html');
-
+    document.getElementById('btnEndingMenu').addEventListener('click', () => window.location.href = '../index.html');
+    
     this.builder.onSlotClick((slot) => {
       if (this._paused) return;
       const r = this.builder.removeByTileIndex(slot.tileIndex);
