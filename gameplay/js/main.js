@@ -1,39 +1,28 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const engine = new GameEngine();
+document.addEventListener('DOMContentLoaded', function() {
 
-  const activeSlot = SaveManager.getActiveSlot();
+  var engine = new GameEngine();
+  var activeSlot = SaveManager.getActiveSlot();
   if (activeSlot !== null) {
-    const loaded = engine.loadFromSlot(activeSlot);
-    if (loaded) {
-      engine._paused = false;
-      engine._startQueue();
-    } else {
-      engine.start();
-    }
-  } else {
-    engine.start();
-  }
+    var loaded = engine.loadFromSlot(activeSlot);
+    if (loaded) { engine._paused = false; engine._startQueue(); }
+    else { engine.start(); }
+  } else { engine.start(); }
 
-  requestAnimationFrame(() => {
-    const savedName = localStorage.getItem('playerName');
-    const byId    = document.getElementById('playerName');
-    const byClass = document.querySelector('.score-label');
-    if (byId)    byId.textContent    = savedName ? savedName.toUpperCase() : 'PLAYER';
-    if (byClass) byClass.textContent = savedName ? savedName.toUpperCase() : 'TALA';
+  requestAnimationFrame(function() {
+    var n = localStorage.getItem('playerName');
+    var el = document.querySelector('.score-label');
+    if (el) el.textContent = n ? n.toUpperCase() : 'TALA';
   });
 
-  // Audio
   audioManager.resumeBGM();
-  document.addEventListener('click', () => audioManager.playBGM(), { once: true });
-  document.getElementById('tileGrid').addEventListener('click', () => audioManager.playSFX());
-  document.querySelectorAll('.action-btn, .ol-btn').forEach(btn => {
-    btn.addEventListener('click', () => audioManager.playSFX());
+  document.addEventListener('click', function() { audioManager.playBGM(); }, { once: true });
+  document.getElementById('tileGrid').addEventListener('click', function() { audioManager.playSFX(); });
+  document.querySelectorAll('.action-btn, .ol-btn').forEach(function(b) {
+    b.addEventListener('click', function() { audioManager.playSFX(); });
   });
 
-  /* - Settings modal - */
   var gpOverlay = document.getElementById('gpSettingsModal');
   var gpClose   = document.getElementById('gpModalClose');
-  var gpOpenBtn = document.getElementById('btnTopSettings');
   audioManager.syncUI();
   audioManager.bindSettingsControls();
 
@@ -43,9 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     else { if (document.exitFullscreen) document.exitFullscreen(); }
   });
 
-  gpOpenBtn.addEventListener('click', function() {
-    audioManager.syncUI(); gpOverlay.classList.remove('hidden'); engine.pause();
-  });
   document.addEventListener('openGameSettings', function() {
     audioManager.syncUI(); gpOverlay.classList.remove('hidden');
   });
@@ -56,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === gpOverlay) { gpOverlay.classList.add('hidden'); engine.resume(); }
   });
 
-  /* - Save slots - */
   var saveSlotModal    = document.getElementById('saveSlotModal');
   var saveSlotClose    = document.getElementById('saveSlotClose');
   var saveConfirmModal = document.getElementById('saveConfirmModal');
@@ -65,67 +50,59 @@ document.addEventListener('DOMContentLoaded', () => {
   var saveConfirmNo    = document.getElementById('saveConfirmNo');
   var pendingSaveSlot  = null;
 
-  function escHtml(str) {
-    return String(str).replace(/[&<>"']/g, function(c) {
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
-    });
+  function escHtml(s) {
+    var m={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}; m["'"]="&#39;";
+    return String(s).replace(/[&<>"']/g, function(c){ return m[c]; });
   }
 
   function renderSaveSlots() {
-    var container = document.getElementById('saveSlots');
-    container.innerHTML = '';
-    SaveManager.allSlots().forEach(function(slotObj) {
-      var index = slotObj.index;
-      var data  = slotObj.data;
-      var card  = document.createElement('div');
-      card.className = 'save-card ' + (data ? 'save-card--filled' : 'save-card--empty');
-      if (data) {
+    var c = document.getElementById('saveSlots');
+    c.innerHTML = '';
+    SaveManager.allSlots().forEach(function(o) {
+      var idx = o.index; var d = o.data;
+      var card = document.createElement('div');
+      card.className = 'save-card ' + (d ? 'save-card--filled' : 'save-card--empty');
+      if (d) {
         card.innerHTML =
-          '<div class="save-card__slot">SLOT ' + (index+1) + '</div>' +
-          '<div class="save-card__name">' + escHtml(data.playerName||'Unknown') + '</div>' +
-          '<div class="save-card__stats"><span>Score: ' + (data.score||0).toLocaleString() + '</span><span>Streak: ' + (data.bestStreak||0) + '</span></div>' +
-          '<div class="save-card__info"><span>Ch.' + ((data.chapterIdx||0)+1) + ' Lv.' + (data.levelNum||1) + '</span><span>' + (data.hintsLeft!==undefined?data.hintsLeft:3) + ' hints</span></div>' +
-          '<div class="save-card__date">' + SaveManager.formatDate(data.savedAt) + '</div>';
+          '<div class="save-card__slot">SLOT '+(idx+1)+'</div>'+
+          '<div class="save-card__name">'+escHtml(d.playerName||'?')+'</div>'+
+          '<div class="save-card__stats"><span>Score: '+(d.score||0).toLocaleString()+'</span><span>Streak: '+(d.bestStreak||0)+'</span></div>'+
+          '<div class="save-card__info"><span>Ch.'+((d.chapterIdx||0)+1)+' Lv.'+(d.levelNum||1)+'</span><span>'+(d.hintsLeft!==undefined?d.hintsLeft:3)+' hints</span></div>'+
+          '<div class="save-card__date">'+SaveManager.formatDate(d.savedAt)+'</div>';
       } else {
-        card.innerHTML = '<div class="save-card__slot">SLOT ' + (index+1) + '</div><div class="save-card__empty-label">-- Empty --</div>';
+        card.innerHTML = '<div class="save-card__slot">SLOT '+(idx+1)+'</div><div class="save-card__empty-label">-- Empty --</div>';
       }
-      (function(i, d) {
+      (function(i,dd) {
         card.addEventListener('click', function() {
           pendingSaveSlot = i;
-          saveConfirmMsg.textContent = d
-            ? 'Overwrite Slot ' + (i+1) + ' (' + escHtml(d.playerName||'') + ')? Cannot be undone.'
-            : 'Save to Slot ' + (i+1) + '?';
+          saveConfirmMsg.textContent = dd
+            ? 'Overwrite Slot '+(i+1)+' ('+escHtml(dd.playerName||'')+')? Cannot be undone.'
+            : 'Save to Slot '+(i+1)+'?';
           saveSlotModal.classList.add('hidden');
           saveConfirmModal.classList.remove('hidden');
         });
-      }(index, data));
-      container.appendChild(card);
+      }(idx, d));
+      c.appendChild(card);
     });
   }
 
   document.getElementById('btnSaveGame').addEventListener('click', function() {
     document.getElementById('pauseOverlay').classList.add('hidden');
-    renderSaveSlots();
-    saveSlotModal.classList.remove('hidden');
+    renderSaveSlots(); saveSlotModal.classList.remove('hidden');
   });
   saveSlotClose.addEventListener('click', function() {
     saveSlotModal.classList.add('hidden');
     document.getElementById('pauseOverlay').classList.remove('hidden');
   });
   saveConfirmYes.addEventListener('click', function() {
-    if (pendingSaveSlot !== null) {
-      engine.saveToSlot(pendingSaveSlot);
-      pendingSaveSlot = null;
-    }
+    if (pendingSaveSlot !== null) { engine.saveToSlot(pendingSaveSlot); pendingSaveSlot = null; }
     saveConfirmModal.classList.add('hidden');
     document.getElementById('pauseOverlay').classList.remove('hidden');
-    engine._feedback('Game Saved!', 'correct');
-    engine.resume();
+    engine._feedback('Game Saved!', 'correct'); engine.resume();
   });
   saveConfirmNo.addEventListener('click', function() {
-    pendingSaveSlot = null;
-    saveConfirmModal.classList.add('hidden');
-    renderSaveSlots();
-    saveSlotModal.classList.remove('hidden');
+    pendingSaveSlot = null; saveConfirmModal.classList.add('hidden');
+    renderSaveSlots(); saveSlotModal.classList.remove('hidden');
   });
+
 });
