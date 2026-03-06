@@ -151,7 +151,7 @@ html, body {
 }
 .stage-bg {
   position: absolute; inset: 0;
-  background: url('img/background_0.png') center center / cover no-repeat;
+  background: url('../../img/background_0.png') center center / cover no-repeat;
   z-index: 0;
 }
 

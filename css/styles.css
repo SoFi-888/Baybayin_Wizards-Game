@@ -20,13 +20,18 @@
 
 body {
   min-height: 100vh;
-  background-color: #2d6a2d;
+  background: url('../img/background_menu.png') center center / cover no-repeat fixed;
+  background-color: #1a0f06;
   font-family: 'Crimson Text', Georgia, serif;
   color: var(--parchment);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.bg-layer {
+  display: none;
 }
 
 /* ─ Main Screen Container ─ */
@@ -36,6 +41,23 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.mascot-wrap {
+  position: relative;
+  margin-bottom: -10px;
+  animation: mascotFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes mascotFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+.mascot {
+  width: 130px;
+  height: auto;
+  filter: drop-shadow(0 8px 20px rgba(212,160,23,0.4));
 }
 
 /* ─ Title Panel ─ */
@@ -69,7 +91,6 @@ body {
   color: var(--gold);
   line-height: 1;
   margin-bottom: 6px;
-  text-shadow: 0 0 6px rgba(212,160,23,0.6);
 }
 
 .title-en {
@@ -80,7 +101,6 @@ body {
   text-transform: uppercase;
   margin-bottom: 4px;
   color: var(--gold);
-  text-shadow: 0 0 4px rgba(212,160,23,0.5);
 }
 
 .subtitle {
@@ -186,7 +206,21 @@ body {
   filter: brightness(1.1);
 }
 
-/* ─ Settings Modal Overlay ─ */
+/* ─ Settings Overlay ─ */
+.modal-close {
+  position: absolute;
+  top: 10px; right: 12px;
+  background: none;
+  border: none;
+  color: var(--parchment-dim);
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.5;
+  line-height: 1;
+  padding: 2px 6px;
+}
+.modal-close:hover { opacity: 1; color: var(--gold-light); }
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -296,7 +330,7 @@ body {
   filter: brightness(1.1);
 }
 
-/* ── COMIC OVERLAY (Fills Screen Completely) ── */
+/* ─ COMIC OVERLAY ─ */
 .comic-overlay {
   position: fixed;
   inset: 0;
