@@ -383,6 +383,11 @@ _buildSaveData() {
     SaveManager.clearActiveSlot();
   }
   /* HELPERS */
+  _setHeroImg(src) {
+    const img = document.querySelector('#heroChar .hero-img');
+    if (img) img.src = src;
+  }
+  
   _arrEqual(a, b) {
     return a.length === b.length && a.every((v, i) => v === b[i]);
   }
