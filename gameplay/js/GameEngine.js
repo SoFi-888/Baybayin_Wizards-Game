@@ -311,15 +311,15 @@ class GameEngine {
       el.className   = `feedback-msg ${type}`;
       el.textContent = text;
 
+      const battleMid = 80 + Math.random() * 100;
       el.style.left = '50%';
       el.style.transform = 'translateX(-50%)';
-      el.style.top = (28 + Math.random() * 8) + '%';
+      el.style.top = battleMid + 'px';
 
       this._feedLayer.appendChild(el);
       setTimeout(() => el.remove(), 3000);
     }, delay);
   }
-
   /* SAVE/LOAD */
 _buildSaveData() {
     return {

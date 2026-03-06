@@ -426,25 +426,6 @@ html, body {
   font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.3rem;
   pointer-events: none; white-space: nowrap;
 }
-.feedback-msg.correct,
-.feedback-msg.bonus,
-.feedback-msg.combo  {
-  left: 4% !important;
-  top: 30% !important;
-}
-
-.feedback-msg.wrong {
-  right: 4% !important;
-  left: auto !important;
-  top: 30% !important;
-}
-
-.feedback-msg.points {
-  left: 50% !important;
-  top: 35% !important;
-  transform: translateX(-50%);
-}
-
 .feedback-msg.correct { color: #50dd50; }
 .feedback-msg.wrong   { color: #ff4444; }
 .feedback-msg.bonus   { color: #d060ff; font-size: 1.5rem; }
