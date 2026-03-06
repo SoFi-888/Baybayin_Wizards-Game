@@ -128,6 +128,11 @@ class GameEngine {
     if (this.hud.combo > 2)  this._feedback(`x${this.hud.combo} COMBO!`, 'combo', 500);
 
     this._saveProgress();
+    this._setHeroImg('img/Tala_badass.png');
+    setTimeout(() => {
+      if (this.hud.lives <= 1) this._setHeroImg('img/Tala_lowhealth.png');
+      else this._setHeroImg('img/Tala.png');
+    }, 1000);
   }
 
   _onWrong() {
@@ -147,6 +152,7 @@ class GameEngine {
     if (!alive) {
       setTimeout(() => this._gameOver(), 700);
     } else {
+      if (this.hud.lives <= 1) setTimeout(() => this._setHeroImg('img/Tala_lowhealth.png'), 100);
       setTimeout(() => {
         const old = this.builder.clear();
         old.forEach(s => this.grid.deselectTile(s.tileIndex));
@@ -210,6 +216,7 @@ class GameEngine {
   /* GAME OVER/VICTORY */
   _gameOver() {
     this.pause();
+    this._setHeroImg('img/youdied.png');
     document.getElementById('finalScore').textContent = this.hud.score.toLocaleString();
     document.getElementById('finalWords').textContent = this._wordsFound;
     document.getElementById('finalCombo').textContent = `x${this.hud.bestCombo}`;
@@ -292,7 +299,7 @@ class GameEngine {
       `${this._hintsLeft} hint${this._hintsLeft !== 1 ? 's' : ''} left`;
     document.getElementById('btnHint').disabled    = this._hintsLeft <= 0;
     document.getElementById('btnScramble').textContent =
-      `⟳ Scramble (${this._scrambLeft})`;
+      `Scramble (${this._scrambLeft})`;
     document.getElementById('btnScramble').disabled = this._scrambLeft <= 0;
   }
 
