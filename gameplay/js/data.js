@@ -8,7 +8,7 @@ const DATA = {
     { baybayin:['ᜉ','ᜓ','ᜐ','ᜓ'],           roman:'puso',   meaning:'heart',          points:110 },
     { baybayin:['ᜊ','ᜓ','ᜑ','ᜒ','ᜈ᜔'],     roman:'buhin',  meaning:'to erase',       points:120 },
     { baybayin:['ᜆ','ᜓ','ᜊ','ᜒ','ᜄ᜔'],      roman:'tubig',  meaning:'water',          points:120 },
-    { baybayin:['ᜊ','ᜓ','ᜃ','ᜒ','ᜇ'],      roman:'bukid',  meaning:'farm / field',   points:120 },
+    { baybayin:['ᜊ','ᜓ','ᜃ','ᜒ','ᜇ᜔'],      roman:'bukid',  meaning:'farm / field',   points:120 },
     { baybayin:['ᜄ','ᜓ','ᜎ','ᜓ'],           roman:'gulo',   meaning:'chaos',          points:110 },
     { baybayin:['ᜋ','ᜓ','ᜃ᜔','ᜑ'],      roman:'mukha',  meaning:'face',           points:130 },
     { baybayin:['ᜇ','ᜒ','ᜏ'],           roman:'diwa',   meaning:'spirit / soul',  points:140, bonus:true },
@@ -35,6 +35,7 @@ const DATA = {
   tilePool: [
     { char:'ᜀ', roman:'a'   },
     { char:'ᜁ', roman:'i'   },
+    { char:'ᜇ᜔', roman:'d'},
     { char:'ᜂ', roman:'u'   },
     { char:'ᜃ', roman:'ka'  },
     { char:'ᜄ', roman:'ga'  },
