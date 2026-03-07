@@ -28,7 +28,7 @@ const DATA = {
     {baybayin:['ᜀ','ᜉ','ᜓ','ᜌ᜔'],         roman:'apoy',   meaning:'fire',           points:100 },
     { baybayin:['ᜎ','ᜒ','ᜉ','ᜓ'],           roman:'lipu',   meaning:'to turn away',   points:110 },
     {baybayin:['ᜊ','ᜆ','ᜓ'],               roman:'bato',   meaning:'stone',          points:100},
-    {baybayin['ᜑ','ᜅ','ᜒ','ᜈ᜔'],          roman:'hangin',   meaning:'air',          points:110},
+    {baybayin:['ᜑ','ᜅ','ᜒ','ᜈ᜔'],          roman:'hangin',   meaning:'air',          points:110},
   ],
 
   /* ─ Tile pool ─ */
@@ -55,10 +55,10 @@ const DATA = {
     { char:'ᜓ', roman:'u'   },
     { char:'ᜈ᜔', roman:'n' },
     { char:'ᜆ᜔', roman:'t' },
-    { char: 'ᜃ᜔', roman: 'k' },
-    { char: 'ᜏ᜔', roman: 'w' },
+    { char:'ᜃ᜔', roman:'k' },
+    { char:'ᜏ᜔', roman:'w' },
     { char:'ᜉ᜔', roman:'p' },
-    { char:'ᜄ᜔', roman:'g'},
+    { char:'ᜄ᜔', roman:'g' },
   ],
 
   commonChars: ['ᜀ','ᜁ','ᜂ','ᜃ','ᜆ','ᜈ','ᜉ','ᜊ','ᜋ','ᜎ','ᜑ','ᜒ','ᜓ'],
