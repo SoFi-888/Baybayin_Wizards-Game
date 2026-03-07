@@ -629,3 +629,15 @@ html, body {
   text-align: center;
   padding: 8px 0;
 }
+.charge-badge {
+  position: absolute;
+  bottom: 4px; right: 5px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  color: var(--gold-light);
+  background: rgba(0,0,0,0.6);
+  border-radius: 3px;
+  padding: 0 3px;
+  pointer-events: none;
+}
+.item-slot { position: relative; }

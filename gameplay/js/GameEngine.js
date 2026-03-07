@@ -283,11 +283,19 @@ class GameEngine {
       if (r) this.grid.deselectTile(r.tileIndex);
     });
     this._items = [
-      { el: document.getElementById('item0'), type: 'heal',     used: false },
-      { el: document.getElementById('item1'), type: 'strength', used: false },
+      { el: document.getElementById('item0'), type: 'heal',     used: false, charges: 3 },
+      { el: document.getElementById('item1'), type: 'strength', used: false, charges: 1 },
     ];
-    this._items.forEach(item => {
-      if (item.el) item.el.addEventListener('click', () => this._useItem(item));
+    const initDefs = [
+      { src:'img/health_potion.png',   alt:'Health Potion',   charges: 3 },
+      { src:'img/strength_potion.png', alt:'Strength Potion', charges: 1 },
+    ];
+    this._items.forEach((item, i) => {
+      if (item.el) {
+        const badge = initDefs[i].charges > 1 ? `<span class="charge-badge">x${initDefs[i].charges}</span>` : '';
+        item.el.innerHTML = `<img class="item-img" src="${initDefs[i].src}" alt="${initDefs[i].alt}" />${badge}`;
+        item.el.addEventListener('click', () => this._useItem(item));
+      }
     });
 
     // Keyboard
@@ -404,15 +412,19 @@ _buildSaveData() {
   /* HELPERS */
   _resetItems() {
     const defs = [
-      { id:'item0', src:'img/health_potion.png',   alt:'Health Potion'   },
-      { id:'item1', src:'img/strength_potion.png', alt:'Strength Potion' },
+      { id:'item0', src:'img/health_potion.png',   alt:'Health Potion',   charges: 3 },
+      { id:'item1', src:'img/strength_potion.png', alt:'Strength Potion', charges: 1 },
     ];
     if (!this._items) return;
     this._items.forEach((item, i) => {
       item.used = false;
+      item.charges = defs[i].charges;
       if (item.el) {
         item.el.classList.remove('item-slot--empty');
-        item.el.innerHTML = `<img class="item-img" src="${defs[i].src}" alt="${defs[i].alt}" />`;
+        const badge = defs[i].charges > 1
+          ? `<span class="charge-badge">x${defs[i].charges}</span>`
+          : '';
+        item.el.innerHTML = `<img class="item-img" src="${defs[i].src}" alt="${defs[i].alt}" />${badge}`;
         item.el.onclick = () => this._useItem(item);
       }
     });
@@ -420,25 +432,28 @@ _buildSaveData() {
 
   /* ITEMS */
   _useItem(item) {
-    if (this._paused || item.used) return;
-    item.used = true;
+    if (this._paused || item.charges <= 0) return;
+    item.charges--;
 
     if (item.type === 'heal') {
       const healed = Math.min(this.hud._lives + 3, HUD.MAX_LIVES);
       this.hud._lives = healed;
       this.hud._renderHeroHP();
-      this._feedback('+3 HP Restored!', 'correct');
+      this._feedback('HP Restored!', 'correct');
       if (this.hud._lives > 1) this._setHeroImg('img/Tala.png');
     } else if (item.type === 'strength') {
       this.enemy.damageEnemy(1);
-      this._feedback('Power Strike! -1 Enemy HP!', 'bonus');
+      this._feedback('Power Strike!', 'bonus');
     }
-
-    // Empty the slot
     if (item.el) {
-      item.el.innerHTML = '<div class="item-name" style="font-size:0.7rem;color:#5a3a10;text-align:center;">empty</div>';
-      item.el.classList.add('item-slot--empty');
-      item.el.onclick = null;
+      if (item.charges > 0) {
+        const badge = item.el.querySelector('.charge-badge');
+        if (badge) badge.textContent = 'x' + item.charges;
+      } else {
+        item.el.innerHTML = '<div class="item-name" style="font-size:0.7rem;color:#5a3a10;text-align:center;">empty</div>';
+        item.el.classList.add('item-slot--empty');
+        item.el.onclick = null;
+      }
     }
   }
   
