@@ -3,7 +3,7 @@ const DATA = {
   /* Baybayin word list */
   words: [
     { baybayin:['ᜊ','ᜑ','ᜌ᜔'],           roman:'bahay',  meaning:'house',         points:100 },
-    { baybayin:['ᜀ','ᜇ','ᜏ᜔'],           roman:'araw',   meaning:'sun / day',      points:100 },
+    { baybayin:['ᜀ','ᜍ','ᜏ᜔'],           roman:'araw',   meaning:'sun / day',      points:100 },
     { baybayin:['ᜎ','ᜓ','ᜉ'],           roman:'lupa',   meaning:'earth / soil',   points:100 },
     { baybayin:['ᜉ','ᜓ','ᜐ','ᜓ'],           roman:'puso',   meaning:'heart',          points:110 },
     { baybayin:['ᜊ','ᜓ','ᜑ','ᜒ','ᜈ᜔'],     roman:'buhin',  meaning:'to erase',       points:120 },
@@ -60,6 +60,7 @@ const DATA = {
     { char:'ᜏ᜔', roman:'w' },
     { char:'ᜉ᜔', roman:'p' },
     { char:'ᜄ᜔', roman:'g' },
+    { char:'ᜍ', roman:'ra'},
   ],
 
   commonChars: ['ᜀ','ᜁ','ᜂ','ᜃ','ᜆ','ᜈ','ᜉ','ᜊ','ᜋ','ᜎ','ᜑ','ᜒ','ᜓ'],
