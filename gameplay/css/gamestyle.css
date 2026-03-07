@@ -801,3 +801,24 @@ html, body {
   .center-panel { padding: 2px; }
   .action-row { max-width: 100% !important; width: 100% !important; }
 }
+
+@media (max-width: 768px) {
+  .curtain-panel { width: 110px !important; }
+}
+@media (max-width: 425px) {
+  .curtain-panel { width: 80px !important; }
+}
+@media (max-width: 375px) {
+  .curtain-panel { width: 68px !important; }
+  .item-slot     { width: 52px !important; height: 52px !important; }
+  .item-img      { width: 32px !important; height: 32px !important; }
+}
+@media (max-width: 320px) {
+  .curtain-panel { width: 52px !important; }
+  .item-slots    { flex-direction: column !important; }
+  .item-slot     { width: 40px !important; height: 40px !important; }
+  .item-img      { width: 26px !important; height: 26px !important; }
+  .panel-title   { font-size: 0.36rem !important; }
+  .hint-panel__label { font-size: 0.8rem !important; }
+  .hint-panel__count { font-size: 0.6rem !important; }
+}
