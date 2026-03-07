@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   var engine = new GameEngine();
-  var activeSlot = SaveManager.getActiveSlot();
+  var isNewGame = new URLSearchParams(window.location.search).get('newgame') === '1';
+  var activeSlot = isNewGame ? null : SaveManager.getActiveSlot();
   if (activeSlot !== null) {
     var loaded = engine.loadFromSlot(activeSlot);
     if (loaded) { engine._paused = false; engine._startQueue(); }
