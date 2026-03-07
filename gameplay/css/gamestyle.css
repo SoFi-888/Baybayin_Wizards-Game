@@ -229,7 +229,7 @@ html, body {
 }
 .panel-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.0rem; letter-spacing: 0.18em;
+  font-size: 0.6rem; letter-spacing: 0.18em;
   color: var(--gold); text-transform: uppercase;
   text-align: center;
 }
@@ -257,18 +257,18 @@ html, body {
 .hint-panel {
   text-align: center; margin-top: auto;
 }
-.hint-panel__label { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 2px; }
-.hint-panel__roman { font-style: italic; font-size: 0.90rem; color: var(--parch-dim); margin-bottom: 1px; }
-.hint-panel__count { font-size: 0.90rem; color: #9a7040; }
+.hint-panel__label { font-family: 'Cinzel', serif; font-size: 0.58rem; color: var(--gold); margin-bottom: 2px; }
+.hint-panel__roman { font-style: italic; font-size: 0.75rem; color: var(--parch-dim); margin-bottom: 1px; }
+.hint-panel__count { font-size: 0.54rem; color: #9a7040; }
 
 /* Enemy desc */
 .enemy-desc { display: flex; flex-direction: column; gap: 4px; }
 .enemy-desc__name {
-  font-family: 'Cinzel', serif; font-size: 0.90rem;
+  font-family: 'Cinzel', serif; font-size: 0.72rem;
   color: #ff9999;
 }
 .enemy-desc__lore {
-  font-size: 0.80rem; color: rgba(201,169,110,0.75);
+  font-size: 0.62rem; color: rgba(201,169,110,0.75);
   font-style: italic; line-height: 1.4;
 }
 
@@ -283,14 +283,6 @@ html, body {
 .wi-roman    { font-family: 'Cinzel', serif; font-size: 1.0rem; color: var(--gold); letter-spacing: 0.06em; margin-bottom: 2px; }
 .wi-meaning  { font-size: 0.68rem; color: #9a7840; font-style: italic; margin-top: 2px; }
 .wi-points   { font-family: 'Cinzel', serif; font-size: 0.66rem; color: var(--gold-light); margin-top: 3px; }
-
-.streak-box {
-  background: #00000033;
-  border: 1px solid #5a2800;
-  border-radius: 3px; padding: 5px; text-align: center; margin-top: auto;
-}
-.streak-label { font-size: 0.80rem; letter-spacing: .1em; color: #9a7040; text-transform: uppercase; }
-.streak-val   { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold-light); }
 
 .streak-box {
   background: #00000033;
@@ -317,7 +309,7 @@ html, body {
   border-radius: 20px; padding: 2px 10px; flex-shrink: 0;
 }
 .combo-text  { font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--gold); }
-.combo-label { font-size: 0.80rem; letter-spacing: .18em; color: #5a4020; text-transform: uppercase; }
+.combo-label { font-size: 0.48rem; letter-spacing: .18em; color: #5a4020; text-transform: uppercase; }
 .combo-display.active .combo-text { color: #ff9933; }
 
 .word-prompt {
@@ -347,13 +339,14 @@ html, body {
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
   width: 100%;
-  max-width: 210px;
+  max-width: 230px;
   flex: 1;
   min-height: 0;
   align-content: stretch;
 }
 .tile {
   aspect-ratio: 1;
+  touch-action: manipulation;
   background: var(--tile-bg);
   border: 2px solid var(--tile-border);
   border-radius: 5px;
@@ -402,7 +395,8 @@ html, body {
   width: 100%; max-width: 250px; flex-shrink: 0;
 }
 .action-btn {
-  flex: 1; padding: 7px 3px;
+  flex: 1;
+  touch-action: manipulation; padding: 7px 3px;
   border: none; border-radius: 4px; cursor: pointer;
   font-family: 'Cinzel', serif; font-size: 0.56rem;
   letter-spacing: .04em; text-transform: uppercase;
@@ -532,14 +526,132 @@ html, body {
 }
 .gp-toggle input:checked ~ .gp-toggle-thumb { transform: translateX(22px); }
 
+@media (min-width: 1280px) {
+  .curtain-panel        { width: 260px; }
+  .battle-stage         { height: 300px; }
+  .hero-img             { width: 130px; height: 165px; }
+  .enemy-img            { width: 110px; }
+  .tile-grid            { max-width: 240px; }
+  .panel-title          { font-size: 1.1rem; }
+  .item-slot            { width: 115px; height: 115px; }
+  .item-img             { width: 75px; height: 75px; }
+}
 
-@media (max-width: 640px) {
-  .curtain-panel { width: 130px; }
-  .battle-stage  { height: 120px; }
-  .hero-img      { width: 55px; }
-  .enemy-img     { width: 65px; }
-  .tile-grid     { max-width: 180px; }
-  .hp-overlay    { min-width: 110px; }
+@media (min-width: 900px) and (max-width: 1279px) {
+  .curtain-panel        { width: 200px; }
+  .battle-stage         { height: 260px; }
+  .tile-grid            { max-width: 220px; }
+  .item-slot            { width: 90px; height: 90px; }
+  .item-img             { width: 58px; height: 58px; }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .curtain-panel        { width: 160px; }
+  .battle-stage         { height: 200px; }
+  .hero-img             { width: 90px; height: 115px; }
+  .enemy-img            { width: 80px; }
+  .tile-grid            { max-width: 200px; }
+  .hp-overlay           { min-width: 130px; max-width: 160px; }
+  .item-slot            { width: 68px; height: 68px; }
+  .item-img             { width: 44px; height: 44px; }
+  .panel-title          { font-size: 0.85rem; }
+  .enemy-desc__lore     { font-size: 0.72rem; }
+  .action-btn           { font-size: 0.52rem; padding: 6px 2px; }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+  .curtain-panel        { width: 130px; }
+  .battle-stage         { height: 160px; }
+  .hero-img             { width: 70px; height: 90px; }
+  .enemy-img            { width: 70px; }
+  .tile-grid            { max-width: 185px; }
+  .hp-overlay           { min-width: 110px; max-width: 140px; }
+  .hp-track             { height: 7px; }
+  .item-slot            { width: 55px; height: 55px; }
+  .item-img             { width: 36px; height: 36px; }
+  .panel-title          { font-size: 0.75rem; letter-spacing: 0.1em; }
+  .panel-content        { gap: 4px; padding: 5px 6px; }
+  .enemy-desc__lore     { font-size: 0.68rem; }
+  .hint-panel__label    { font-size: 1.1rem; }
+  .action-btn           { font-size: 0.48rem; padding: 5px 2px; }
+  .word-prompt__roman--main { font-size: 1.1rem; }
+  .top-bar              { height: 38px; }
+  .score-value          { font-size: 0.95rem; }
+}
+
+/* ── Mobile Portrait (max 599px) ─────────────────────────── */
+@media (max-width: 599px) {
+  /* Stack layout: side panels collapse to icon-only strips */
+  .curtain-panel        { width: 72px; }
+  .panel-content        { padding: 4px; gap: 3px; }
+  .panel-title          { font-size: 0.55rem; letter-spacing: 0.08em; }
+
+  .battle-stage         { height: 130px; }
+  .hero-img             { width: 55px; height: 70px; margin-left: 4px; }
+  .hero-side            { margin-left: 8px; margin-bottom: 4px; }
+  .enemy-img            { width: 55px; }
+  .enemy-side           { margin-right: 4px; margin-bottom: 4px; }
+
+  .hp-overlay           { min-width: 80px; max-width: 110px; top: 4px; }
+  .hp-track             { height: 6px; }
+
+  /* Items: stack vertically in narrow panel */
+  .item-slots           { flex-direction: column; gap: 4px; align-items: center; }
+  .item-slot            { width: 52px; height: 52px; }
+  .item-img             { width: 34px; height: 34px; }
+
+  .hint-panel__label    { font-size: 0.85rem; }
+  .hint-panel__count    { font-size: 0.68rem; }
+  .hint-panel__roman    { font-size: 0.72rem; }
+
+  /* Enemy panel: just lore, no moves */
+  .enemy-desc__name     { font-size: 0.72rem; }
+  .enemy-desc__lore     { font-size: 0.6rem; line-height: 1.3; }
+
+  /* Word info box */
+  .wi-roman             { font-size: 0.8rem; }
+  .wi-meaning           { font-size: 0.58rem; }
+  .wi-points            { font-size: 0.55rem; }
+  .streak-val           { font-size: 0.9rem; }
+  .streak-label         { font-size: 0.46rem; }
+
+  /* Center panel */
+  .center-panel         { padding: 4px 4px; gap: 3px; }
+  .tile-grid            { max-width: 170px; gap: 3px; }
+  .tile-char            { font-size: clamp(0.7rem, 3vw, 1rem); }
+  .word-prompt          { padding: 2px 6px; }
+  .word-prompt__roman--main { font-size: 1rem; }
+  .combo-display        { padding: 1px 7px; }
+  .combo-text           { font-size: 0.78rem; }
+  .combo-label          { font-size: 0.62rem; }
+
+  /* Action row */
+  .action-row           { max-width: 200px; gap: 3px; }
+  .action-btn           { font-size: 0.42rem; padding: 5px 1px; border-radius: 3px; }
+  .action-btn--attack   { font-size: 0.5rem; }
+
+  /* Top bar */
+  .top-bar              { height: 34px; padding: 0 6px; }
+  .score-value          { font-size: 0.85rem; min-width: 36px; }
+  .score-label          { font-size: 0.5rem; }
+  .level-badge          { font-size: 0.52rem; }
+  .chapter-banner       { font-size: 0.58rem; padding: 1px 8px; }
+  .enemy-name-badge     { font-size: 0.58rem; }
+
+  /* Word display bar */
+  .word-display-bar     { min-height: 30px; padding: 2px 0; }
+  .wt-tile              { width: 22px; height: 22px; font-size: 0.8rem; }
+}
+
+@media (max-width: 380px) {
+  .curtain-panel        { width: 58px; }
+  .tile-grid            { max-width: 150px; }
+  .battle-stage         { height: 110px; }
+  .hero-img             { width: 46px; height: 58px; }
+  .enemy-img            { width: 46px; }
+  .action-btn           { font-size: 0.38rem; padding: 4px 1px; }
+  .item-slot            { width: 44px; height: 44px; }
+  .item-img             { width: 28px; height: 28px; }
 }
 
 /* ─ Save Slot ─ */
@@ -560,6 +672,7 @@ html, body {
   margin-bottom: 12px;
   font-style: italic;
 }
+
 
 /* ─ Save Slot Cards ─ */
 .save-slots {
