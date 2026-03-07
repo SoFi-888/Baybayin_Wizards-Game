@@ -139,4 +139,5 @@ class EnemyManager {
 
   get chapterIdx() { return this._chapterIdx; }
   get enemyIdx()   { return this._enemyIdx; }
+  get currentHP()  { return this._currentHP; }
 }

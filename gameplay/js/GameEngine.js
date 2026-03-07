@@ -351,6 +351,7 @@ _buildSaveData() {
       scrambLeft:  this._scrambLeft,
       chapterIdx:  this.enemy.chapterIdx,
       enemyIdx:    this.enemy.enemyIdx,
+      enemyHP:     this.enemy.currentHP,
       levelNum:    parseInt(document.getElementById('levelNum')?.textContent || '1', 10),
     };
   }
@@ -379,6 +380,10 @@ _buildSaveData() {
     this.enemy._chapterIdx = data.chapterIdx || 0;
     this.enemy._enemyIdx   = data.enemyIdx   || 0;
     this.enemy.loadCurrent();
+    if (data.enemyHP !== undefined) {
+      this.enemy._currentHP = data.enemyHP;
+      this.enemy._renderEnemyHP();
+    }
 
     this._refreshAuxUI();
     return true;
