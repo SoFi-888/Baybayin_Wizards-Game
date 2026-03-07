@@ -756,3 +756,48 @@ html, body {
   .tile-grid  { max-width: 100%; width: 100%; }
   .action-row { max-width: 100%; width: 100%; }
 }
+
+@media (max-width: 768px) {
+  .tile-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .center-panel { padding: 4px 6px; }
+}
+
+@media (max-width: 425px) {
+  .tile-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    gap: 3px;
+  }
+  .tile-char { font-size: 0.75rem !important; }
+  .center-panel { padding: 3px 4px; }
+  .action-row { max-width: 100% !important; width: 100% !important; }
+}
+
+@media (max-width: 375px) {
+  .tile-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    gap: 2px;
+  }
+  .tile-char { font-size: 0.65rem !important; }
+  .center-panel { padding: 2px 3px; }
+  .action-row { max-width: 100% !important; width: 100% !important; }
+}
+
+@media (max-width: 320px) {
+  .tile-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    gap: 2px;
+  }
+  .tile-char { font-size: 0.55rem !important; }
+  .center-panel { padding: 2px; }
+  .action-row { max-width: 100% !important; width: 100% !important; }
+}
