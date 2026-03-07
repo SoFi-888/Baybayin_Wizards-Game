@@ -751,3 +751,8 @@ html, body {
   .chapter-banner       { font-size: 0.44rem; padding: 1px 4px; }
   .wt-tile              { width: 18px; height: 18px; font-size: 0.72rem; }
 }
+
+@media (max-width: 768px) {
+  .tile-grid  { max-width: 100%; width: 100%; }
+  .action-row { max-width: 100%; width: 100%; }
+}
